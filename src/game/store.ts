@@ -29,8 +29,9 @@ type GameState = {
   soundOn: boolean;
 
   setPhase: (p: Phase) => void;
+  goToIntro: () => void;
+  goToChoose: () => void;
   chooseStarter: (p: Player) => void;
-  startGame: () => void;
   rollDice: () => void;
   movePawnTo: (target: number) => boolean;
   closeCardAndProceed: () => void;
