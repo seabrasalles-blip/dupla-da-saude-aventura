@@ -97,7 +97,6 @@ function Intro() {
 function GameScreen() {
   const turn = useGame((s) => s.turn);
   const dice = useGame((s) => s.dice);
-  const destination = useGame((s) => s.destination);
   const phase = useGame((s) => s.phase);
   const seals = useGame((s) => s.seals);
   const reset = useGame((s) => s.reset);
@@ -124,11 +123,11 @@ function GameScreen() {
         </div>
 
         <div className="rounded-2xl bg-white border-2 border-slate-200 p-3 shadow flex flex-col items-center">
-          <div className="text-xs font-bold text-slate-500 uppercase mb-2">Dado (1 a 3)</div>
+          <div className="text-xs font-bold text-slate-500 uppercase mb-2">Dado</div>
           <Dice />
-          {phase === "moving" && destination && (
-            <div className="mt-2 text-center text-sm font-semibold text-orange-700 bg-orange-100 border-2 border-orange-300 rounded-xl px-3 py-2">
-              Arraste {turn === "nina" ? "a Nina" : "o Nino"} até a casa <b>{destination}</b>
+          {phase === "moving" && (
+            <div className="mt-2 text-center text-xs font-semibold text-slate-600 bg-amber-50 border-2 border-amber-300 rounded-xl px-3 py-2">
+              Conte as casas e arraste {turn === "nina" ? "a Nina" : "o Nino"} até a casa certa.
             </div>
           )}
           {phase === "playing" && (
@@ -138,8 +137,9 @@ function GameScreen() {
 
         <div className="rounded-2xl bg-white border-2 border-slate-200 p-3 shadow flex-1 overflow-auto">
           <div className="text-xs font-bold text-slate-500 uppercase mb-2">
-            Selos da Dupla ({seals.length}/8)
+            Selos da Dupla ({seals.length}/14)
           </div>
+
           <div className="flex flex-wrap gap-1">
             {(Object.keys(SEAL_LABELS) as (keyof typeof SEAL_LABELS)[]).map((s) => {
               const has = seals.includes(s);
