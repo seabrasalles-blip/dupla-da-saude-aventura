@@ -88,7 +88,7 @@ function Intro() {
         do corpo e do ambiente é muito importante.
       </p>
       <button
-        onClick={start}
+        onClick={goToChoose}
         className="mt-6 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-10 py-3 text-lg shadow-xl"
       >
         Vamos jogar!
