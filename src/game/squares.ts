@@ -658,6 +658,12 @@ const BASE_SQUARES: SquareData[] = [
       "ambiente-saudavel",
       "quintal-cuidado",
       "objeto-pessoal",
+      "vacina-em-dia",
+      "cuidado-medico",
+      "dentista-amigo",
+      "prevencao",
+      "nariz-limpo",
+      "espirro-cuidadoso",
     ],
     wrongActions: [
       { label: "Beber água de poça", feedback: "" },
