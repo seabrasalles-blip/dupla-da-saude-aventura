@@ -182,7 +182,7 @@ export const useGame = create<GameState>((set, get) => ({
 
   reset: () =>
     set({
-      phase: "choose",
+      phase: "cover",
       turn: "nina",
       positions: { nina: 1, nino: 1 },
       seals: [],
