@@ -64,7 +64,7 @@ function ChooseStarter() {
 }
 
 function Intro() {
-  const start = useGame((s) => s.startGame);
+  const goToChoose = useGame((s) => s.goToChoose);
   return (
     <div className="flex flex-col items-center justify-center h-full px-12">
       <h2 className="text-3xl font-black text-emerald-800 mb-6">A missão da Dupla da Saúde</h2>
