@@ -28,14 +28,51 @@ function Jogar() {
       className="relative mx-auto bg-gradient-to-br from-sky-50 to-emerald-50 overflow-hidden"
       style={{ width: 1200, height: 675 }}
     >
-      {phase === "choose" && <ChooseStarter />}
+      {phase === "cover" && <Capa />}
       {phase === "intro" && <Intro />}
+      {phase === "choose" && <ChooseStarter />}
       {(phase === "playing" ||
         phase === "rolling" ||
         phase === "moving" ||
         phase === "landing" ||
         phase === "card") && <GameScreen />}
       {phase === "finished" && <FinalScreen />}
+    </div>
+  );
+}
+
+function Capa() {
+  const goToIntro = useGame((s) => s.goToIntro);
+  return (
+    <div className="relative w-full h-full overflow-hidden bg-gradient-to-br from-sky-200 via-emerald-100 to-amber-100">
+      <div className="absolute top-8 left-10 text-6xl opacity-30">🧼</div>
+      <div className="absolute top-20 right-16 text-6xl opacity-30">🪥</div>
+      <div className="absolute bottom-24 left-20 text-6xl opacity-30">🍎</div>
+      <div className="absolute bottom-10 right-24 text-6xl opacity-30">💧</div>
+      <div className="absolute top-1/2 left-6 text-5xl opacity-25">🗑️</div>
+      <div className="absolute top-1/3 right-8 text-5xl opacity-25">🧴</div>
+
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8">
+        <img src={ninaAsset.url} alt="Nina" className="absolute left-20 bottom-10 h-64 drop-shadow-xl" />
+        <img src={ninoAsset.url} alt="Nino" className="absolute right-20 bottom-10 h-64 drop-shadow-xl" />
+
+        <h1 className="text-5xl md:text-6xl font-black text-emerald-800 drop-shadow-sm">
+          Nina e Nino em:
+        </h1>
+        <h2 className="mt-2 text-4xl md:text-5xl font-black text-orange-600 drop-shadow-sm">
+          Missão Corpo Bem Cuidado
+        </h2>
+        <p className="mt-4 text-lg text-slate-700 font-medium max-w-xl">
+          Um jogo sobre higiene, saúde e cuidado com o ambiente.
+        </p>
+
+        <button
+          onClick={goToIntro}
+          className="mt-8 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-12 py-3.5 text-lg shadow-xl shadow-emerald-600/30 transition hover:scale-105"
+        >
+          ▶ Começar
+        </button>
+      </div>
     </div>
   );
 }
@@ -63,7 +100,7 @@ function ChooseStarter() {
 }
 
 function Intro() {
-  const start = useGame((s) => s.startGame);
+  const goToChoose = useGame((s) => s.goToChoose);
   return (
     <div className="flex flex-col items-center justify-center h-full px-12">
       <h2 className="text-3xl font-black text-emerald-800 mb-6">A missão da Dupla da Saúde</h2>
@@ -87,7 +124,7 @@ function Intro() {
         do corpo e do ambiente é muito importante.
       </p>
       <button
-        onClick={start}
+        onClick={goToChoose}
         className="mt-6 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-10 py-3 text-lg shadow-xl"
       >
         Vamos jogar!

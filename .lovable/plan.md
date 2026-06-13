@@ -1,39 +1,47 @@
-# Correção: tela em branco ao arrastar o personagem
+# Nova ordem de telas: Capa → Apresentação → Escolha → Jogo
 
 ## Causa
 
-Em `src/routes/jogar.tsx`, o `GameScreen` só é renderizado para as fases `playing`, `moving`, `card` e `rolling`:
+A home `/` já existe como "capa", mas quando o jogador vai para `/jogar` o fluxo começa direto na escolha de personagem. O usuário quer que `/jogar` seja autocontido na sequência:
 
-```tsx
-{(phase === "playing" || phase === "moving" || phase === "card" || phase === "rolling") && (
-  <GameScreen />
-)}
-```
+1. Capa (título + botão "Começar")
+2. Apresentação dos personagens (Nina e Nino se apresentam)
+3. Escolha quem começa (Nina ou Nino)
+4. Jogo (tabuleiro)
 
-Mas, na última iteração, foi introduzida a fase `landing` (personagem aparece na casa com bounce antes do card abrir). Como `landing` não está na lista, ao soltar o personagem na casa correta a tela fica totalmente vazia (só o gradiente do fundo) — exatamente o que aparece no print.
+Hoje a fase inicial é `choose` e depois `intro` → `playing`.
 
-A "tela inicial" some pelo mesmo motivo logo após o primeiro movimento, porque a fase nunca volta para `playing` enquanto o usuário está preso em `landing`.
+## Mudanças
 
-## Correção
+### `src/game/store.ts`
+- Adicionar a fase `cover` ao tipo `Phase`.
+- Trocar a fase inicial (`phase`) de `"choose"` para `"cover"`.
+- Atualizar `reset()` para voltar a `"cover"`.
+- Trocar `chooseStarter` para apenas definir o jogador e ir para `phase: "playing"` (a apresentação não vem mais depois da escolha).
+- Trocar `startGame` por uma transição da capa para a apresentação: renomear para `goToIntro` (ou manter `startGame` mudando o destino para `"choose"`). Para minimizar alterações, vou usar dois callbacks:
+  - `goToIntro()` — de `cover` para `intro`.
+  - `goToChoose()` — de `intro` para `choose`.
+  - `chooseStarter(p)` — de `choose` para `playing` direto.
 
-Em `src/routes/jogar.tsx`, incluir `landing` na condição do `GameScreen`:
+### `src/routes/jogar.tsx`
+- Renderizar `<Capa />` quando `phase === "cover"` (nova função local, simplificada — só título, subtítulo e botão "Começar"; sem duplicar a home).
+- Em `Intro`, trocar o botão "Vamos jogar!" para chamar `goToChoose()` e levar a `ChooseStarter`.
+- Em `ChooseStarter`, ao clicar, chamar `chooseStarter(p)` que agora vai direto ao jogo.
+- Atualizar a ordem de renderização condicional.
 
-```tsx
-{(phase === "playing" ||
-  phase === "rolling" ||
-  phase === "moving" ||
-  phase === "landing" ||
-  phase === "card") && <GameScreen />}
-```
-
-Nada mais muda: `Board.tsx` já trata a animação de bounce durante `landing` e dispara a transição para `card` após ~750 ms; `ActiveCard` continua só renderizando quando `phase === "card"`.
+### Conteúdo da nova Capa em `/jogar`
+Reaproveitar o visual da home (gradiente, ícones decorativos, Nina/Nino, título "Nina e Nino em: Missão Corpo Bem Cuidado") com apenas um botão "Começar" que dispara `goToIntro()`. Sem link "Como jogar" (essa navegação já está na home).
 
 ## Verificação
 
-- Abrir `/jogar`, escolher personagem, ver intro e tabuleiro normalmente.
-- Rolar o dado, arrastar o personagem até a casa correta: o tabuleiro permanece visível, o personagem dá o bounce na casa, e em seguida o card abre.
-- Conferir que não há barra de rolagem em 1200×675.
+- Ao entrar em `/jogar` aparece a Capa com título e botão Começar.
+- Clicar em Começar leva à apresentação dos personagens (Nina e Nino falando).
+- Clicar em "Vamos jogar!" leva à tela de escolher quem começa.
+- Escolher Nina ou Nino vai direto ao tabuleiro.
+- Reiniciar (botão ↻) volta para a Capa.
+- Caber em 1200×675 sem rolagem.
 
 ## Arquivos afetados
 
-- `src/routes/jogar.tsx` (1 linha na condição de renderização)
+- `src/game/store.ts`
+- `src/routes/jogar.tsx`

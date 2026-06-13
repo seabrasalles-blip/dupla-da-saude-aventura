@@ -4,8 +4,9 @@ import { SQUARE_VARIANTS } from "./squares";
 
 export type Player = "nina" | "nino";
 export type Phase =
-  | "choose"
+  | "cover"
   | "intro"
+  | "choose"
   | "playing"
   | "rolling"
   | "moving"
@@ -28,8 +29,9 @@ type GameState = {
   soundOn: boolean;
 
   setPhase: (p: Phase) => void;
+  goToIntro: () => void;
+  goToChoose: () => void;
   chooseStarter: (p: Player) => void;
-  startGame: () => void;
   rollDice: () => void;
   movePawnTo: (target: number) => boolean;
   closeCardAndProceed: () => void;
@@ -62,7 +64,7 @@ function pickVariantIndex(n: number, used: Record<number, number[]>): {
 }
 
 export const useGame = create<GameState>((set, get) => ({
-  phase: "choose",
+  phase: "cover",
   turn: "nina",
   positions: { nina: 1, nino: 1 },
   seals: [],
@@ -76,8 +78,9 @@ export const useGame = create<GameState>((set, get) => ({
   soundOn: true,
 
   setPhase: (p) => set({ phase: p }),
-  chooseStarter: (p) => set({ turn: p, phase: "intro" }),
-  startGame: () => set({ phase: "playing" }),
+  goToIntro: () => set({ phase: "intro" }),
+  goToChoose: () => set({ phase: "choose" }),
+  chooseStarter: (p) => set({ turn: p, phase: "playing" }),
 
   rollDice: () => {
     // D6 limited to 1–4
@@ -179,7 +182,7 @@ export const useGame = create<GameState>((set, get) => ({
 
   reset: () =>
     set({
-      phase: "choose",
+      phase: "cover",
       turn: "nina",
       positions: { nina: 1, nino: 1 },
       seals: [],
