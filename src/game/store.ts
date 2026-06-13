@@ -38,7 +38,7 @@ type GameState = {
 export const useGame = create<GameState>((set, get) => ({
   phase: "choose",
   turn: "nina",
-  positions: { nina: 0, nino: 0 },
+  positions: { nina: 1, nino: 1 },
   seals: [],
   dice: null,
   destination: null,
