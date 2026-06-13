@@ -6,7 +6,13 @@ export type SealId =
   | "corpo-protegido"
   | "ambiente-saudavel"
   | "quintal-cuidado"
-  | "objeto-pessoal";
+  | "objeto-pessoal"
+  | "vacina-em-dia"
+  | "cuidado-medico"
+  | "dentista-amigo"
+  | "prevencao"
+  | "nariz-limpo"
+  | "espirro-cuidadoso";
 
 export const SEAL_LABELS: Record<SealId, string> = {
   "maos-limpas": "Mãos limpas",
@@ -17,12 +23,21 @@ export const SEAL_LABELS: Record<SealId, string> = {
   "ambiente-saudavel": "Ambiente saudável",
   "quintal-cuidado": "Quintal cuidado",
   "objeto-pessoal": "Objeto pessoal",
+  "vacina-em-dia": "Vacina em dia",
+  "cuidado-medico": "Cuidado médico",
+  "dentista-amigo": "Dentista amigo",
+  prevencao: "Prevenção",
+  "nariz-limpo": "Nariz limpo",
+  "espirro-cuidadoso": "Espirro cuidadoso",
 };
+
+export const ALL_SEALS: SealId[] = Object.keys(SEAL_LABELS) as SealId[];
 
 export type QuestionOption = {
   label: string;
   correct: boolean;
   feedback: string;
+  awardSeal?: SealId;
 };
 
 export type DragItem = {
