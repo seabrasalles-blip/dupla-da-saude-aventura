@@ -219,13 +219,18 @@ function FinalScreen() {
             "Ficar longe de esgoto, lixo e água suja.",
             "Avisar um adulto em situações de risco.",
             "Não compartilhar objetos pessoais de higiene, como a escova de dentes.",
+            "Usar lenço para assoar o nariz e jogar no lixo, depois lavar as mãos.",
+            "Cobrir nariz e boca com o braço dobrado ao espirrar ou tossir.",
+            "Manter as vacinas em dia.",
+            "Visitar médico e dentista para prevenir, não só quando estamos doentes.",
           ].map((t) => (
             <li key={t} className="flex gap-1.5"><span>🏅</span>{t}</li>
           ))}
         </ul>
         <div className="mt-2 text-center text-xs text-slate-500">
-          Selos conquistados: {seals.length}/8
+          Selos conquistados: {seals.length}/14
         </div>
+
       </div>
 
       <div className="mt-4 flex gap-3">
