@@ -1,4 +1,4 @@
-import { useState, type DragEvent } from "react";
+import { useEffect, useState, type DragEvent } from "react";
 import { SQUARES } from "@/game/squares";
 import type { SquareData } from "@/game/types";
 import { useGame, type Player } from "@/game/store";
@@ -34,7 +34,6 @@ const NODE_STYLE: Record<
   roxo: { fill: "from-orange-500 to-rose-600", ring: "ring-orange-300", icon: "🏆", textColor: "text-white" },
 };
 
-// Special end-game icons by square number for extra delight
 const SPECIAL_ICONS: Record<number, string> = {
   26: "🔗",
   27: "⭐",
@@ -49,11 +48,21 @@ export function CHAR(p: Player) {
 
 export function Board() {
   const positions = useGame((s) => s.positions);
-  const destination = useGame((s) => s.destination);
   const phase = useGame((s) => s.phase);
   const turn = useGame((s) => s.turn);
   const movePawnTo = useGame((s) => s.movePawnTo);
+  const setPhase = useGame((s) => s.setPhase);
+  const dice = useGame((s) => s.dice);
   const [navError, setNavError] = useState<string | null>(null);
+
+  // Auto-transition: landing → card after a short bounce so the child sees
+  // the pawn arrive before the card appears.
+  useEffect(() => {
+    if (phase === "landing") {
+      const t = setTimeout(() => setPhase("card"), 750);
+      return () => clearTimeout(t);
+    }
+  }, [phase, setPhase]);
 
   const width = CX0 * 2 + (COLS - 1) * DX;
   const height = CY0 * 2 + (ROWS - 1) * DY;
@@ -67,8 +76,11 @@ export function Board() {
     e.preventDefault();
     const ok = movePawnTo(n);
     if (!ok) {
-      setNavError("Ops! Essa não é a casa sorteada. Procure a casa destacada e tente arrastar de novo.");
-      setTimeout(() => setNavError(null), 2800);
+      const valueTxt = dice != null ? ` O valor do dado foi ${dice}.` : "";
+      setNavError(
+        `Conte as casas a partir da sua posição.${valueTxt} Tente arrastar até a casa certa.`
+      );
+      setTimeout(() => setNavError(null), 3200);
     }
   };
 
@@ -81,7 +93,6 @@ export function Board() {
         height={height}
         viewBox={`0 0 ${width} ${height}`}
       >
-        {/* Yellow base path */}
         <polyline
           points={pointsStr}
           fill="none"
@@ -90,7 +101,6 @@ export function Board() {
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        {/* Dotted white overlay */}
         <polyline
           points={pointsStr}
           fill="none"
@@ -106,10 +116,10 @@ export function Board() {
       {SQUARES.map((sq) => {
         const { x, y } = cellCenter(sq.n);
         const style = NODE_STYLE[sq.color];
-        const isDest = destination === sq.n && phase === "moving";
         const icon = SPECIAL_ICONS[sq.n] ?? style.icon;
         const ninaHere = positions.nina === sq.n;
         const ninoHere = positions.nino === sq.n;
+        const bouncing = phase === "landing" && (ninaHere || ninoHere) && positions[turn] === sq.n;
         return (
           <div
             key={sq.n}
@@ -119,32 +129,34 @@ export function Board() {
             style={{ left: x - R, top: y - R, width: R * 2, height: R * 2 }}
           >
             <div
-              className={`relative h-full w-full rounded-full bg-gradient-to-b ${style.fill} border-[4px] border-white shadow-lg flex items-center justify-center select-none ${
-                isDest ? `ring-8 ${style.ring} animate-pulse` : ""
-              }`}
+              className={`relative h-full w-full rounded-full bg-gradient-to-b ${style.fill} border-[4px] border-white shadow-lg flex items-center justify-center select-none`}
               title={sq.title}
             >
-              <span className={`text-3xl ${style.textColor} drop-shadow-sm`} aria-hidden>
+              <span className="text-3xl text-white drop-shadow-sm" aria-hidden>
                 {icon}
               </span>
-              {/* Number badge */}
               <span className="absolute -top-1 -right-1 min-w-[22px] h-[22px] px-1 rounded-full bg-white text-slate-700 text-[11px] font-black flex items-center justify-center shadow border border-slate-200">
                 {sq.n}
               </span>
-              {isDest && (
-                <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-2xl animate-bounce">
-                  ⬇️
-                </span>
-              )}
             </div>
 
             {/* Pawns */}
             <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex gap-0.5 z-10">
               {ninaHere && (
-                <Pawn player="nina" draggable={turn === "nina" && phase === "moving"} active={turn === "nina"} />
+                <Pawn
+                  player="nina"
+                  draggable={turn === "nina" && phase === "moving"}
+                  active={turn === "nina"}
+                  bouncing={bouncing && turn === "nina"}
+                />
               )}
               {ninoHere && (
-                <Pawn player="nino" draggable={turn === "nino" && phase === "moving"} active={turn === "nino"} />
+                <Pawn
+                  player="nino"
+                  draggable={turn === "nino" && phase === "moving"}
+                  active={turn === "nino"}
+                  bouncing={bouncing && turn === "nino"}
+                />
               )}
             </div>
           </div>
@@ -152,7 +164,7 @@ export function Board() {
       })}
 
       {navError && (
-        <div className="absolute left-1/2 top-2 -translate-x-1/2 rounded-full bg-orange-100 px-4 py-2 text-xs font-semibold text-orange-900 shadow-md border-2 border-orange-300 z-20">
+        <div className="absolute left-1/2 top-2 -translate-x-1/2 rounded-full bg-orange-100 px-4 py-2 text-xs font-semibold text-orange-900 shadow-md border-2 border-orange-300 z-20 text-center max-w-[90%]">
           {navError}
         </div>
       )}
@@ -164,16 +176,20 @@ function Pawn({
   player,
   draggable,
   active,
+  bouncing,
 }: {
   player: Player;
   draggable: boolean;
   active: boolean;
+  bouncing?: boolean;
 }) {
   return (
     <div
       className={`relative rounded-full bg-white border-[3px] ${
         active ? "border-emerald-400 ring-2 ring-emerald-200" : "border-slate-300"
-      } shadow-md ${draggable ? "cursor-grab active:cursor-grabbing animate-pulse" : ""}`}
+      } shadow-md ${draggable ? "cursor-grab active:cursor-grabbing animate-pulse" : ""} ${
+        bouncing ? "animate-bounce" : ""
+      }`}
       style={{ width: 48, height: 48 }}
     >
       <img
@@ -189,7 +205,54 @@ function Pawn({
   );
 }
 
-export function DiceD3() {
+// Pip positions on a die face (0..1 coords)
+const PIPS: Record<number, [number, number][]> = {
+  1: [[0.5, 0.5]],
+  2: [
+    [0.28, 0.28],
+    [0.72, 0.72],
+  ],
+  3: [
+    [0.25, 0.25],
+    [0.5, 0.5],
+    [0.75, 0.75],
+  ],
+  4: [
+    [0.28, 0.28],
+    [0.72, 0.28],
+    [0.28, 0.72],
+    [0.72, 0.72],
+  ],
+};
+
+function DieFace({ value }: { value: number }) {
+  const pips = PIPS[value] ?? [];
+  return (
+    <svg viewBox="0 0 100 100" width="74" height="74">
+      <defs>
+        <linearGradient id="d6face" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#fffbeb" />
+          <stop offset="100%" stopColor="#fde68a" />
+        </linearGradient>
+      </defs>
+      <rect
+        x="6"
+        y="6"
+        width="88"
+        height="88"
+        rx="16"
+        fill="url(#d6face)"
+        stroke="#7c2d12"
+        strokeWidth="5"
+      />
+      {pips.map(([px, py], i) => (
+        <circle key={i} cx={6 + px * 88} cy={6 + py * 88} r="8" fill="#7c2d12" />
+      ))}
+    </svg>
+  );
+}
+
+export function DiceD6() {
   const dice = useGame((s) => s.dice);
   const phase = useGame((s) => s.phase);
   const roll = useGame((s) => s.rollDice);
@@ -205,9 +268,7 @@ export function DiceD3() {
     }, 600);
   };
 
-  const value = spin ? "?" : dice ?? "🎲";
-  // small rotation per face for visual variety
-  const faceRotation = dice === 2 ? "rotate(120deg)" : dice === 3 ? "rotate(240deg)" : "rotate(0deg)";
+  const display = spin ? null : dice;
 
   return (
     <button
@@ -216,39 +277,26 @@ export function DiceD3() {
       className={`relative flex flex-col items-center justify-center ${
         canRoll ? "hover:scale-105 cursor-pointer" : "opacity-70"
       } transition-transform`}
-      title="Clique para rolar o dado de 3 lados"
+      title="Clique para rolar o dado"
     >
       <div
         className={`relative ${spin ? "animate-spin" : ""}`}
-        style={{ width: 100, height: 90, transform: spin ? undefined : faceRotation }}
+        style={{ width: 74, height: 74 }}
       >
-        <svg viewBox="0 0 100 90" width="100" height="90">
-          <defs>
-            <linearGradient id="d3grad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#fde68a" />
-              <stop offset="100%" stopColor="#f59e0b" />
-            </linearGradient>
-          </defs>
-          <polygon
-            points="50,6 94,82 6,82"
-            fill="url(#d3grad)"
-            stroke="#7c2d12"
-            strokeWidth="4"
-            strokeLinejoin="round"
-          />
-          {/* tiny dots at corners to suggest 3 vertices/faces */}
-          <circle cx="50" cy="14" r="2.5" fill="#7c2d12" />
-          <circle cx="88" cy="78" r="2.5" fill="#7c2d12" />
-          <circle cx="12" cy="78" r="2.5" fill="#7c2d12" />
-        </svg>
-        <span className="absolute inset-0 flex items-center justify-center text-4xl font-black text-orange-900 drop-shadow-sm pt-3">
-          {value}
-        </span>
+        {display ? (
+          <DieFace value={display} />
+        ) : (
+          <div className="h-full w-full rounded-2xl bg-amber-100 border-4 border-amber-900 flex items-center justify-center text-3xl font-black text-amber-900">
+            {spin ? "?" : "🎲"}
+          </div>
+        )}
       </div>
-      <span className="mt-1 text-[10px] font-bold text-slate-600 uppercase tracking-wide">D3 · 1 a 3</span>
+      <span className="mt-1 text-[10px] font-bold text-slate-600 uppercase tracking-wide">
+        Dado · 1 a 4
+      </span>
     </button>
   );
 }
 
 // Back-compat alias
-export const Dice = DiceD3;
+export const Dice = DiceD6;

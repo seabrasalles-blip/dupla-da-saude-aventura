@@ -1,37 +1,33 @@
 import { useState, type DragEvent } from "react";
-import { SQUARES } from "@/game/squares";
-import { SEAL_LABELS, type SealId } from "@/game/types";
+import { SEAL_LABELS, type SealId, type SquareData } from "@/game/types";
 import { useGame } from "@/game/store";
-import { CHAR } from "./Board";
 
 export function ActiveCard() {
-  const n = useGame((s) => s.activeSquare);
-  if (!n) return null;
-  const sq = SQUARES[n - 1];
+  const phase = useGame((s) => s.phase);
+  const sq = useGame((s) => s.getActiveSquare());
+  if (phase !== "card" || !sq) return null;
   return (
     <div className="absolute inset-0 z-30 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
       <div className="w-full max-w-[760px] max-h-[600px] overflow-auto rounded-2xl bg-white border-4 border-slate-800 shadow-2xl p-5">
         <div className="flex items-center gap-2 mb-2">
           <span className="rounded-full bg-slate-800 text-white px-2.5 py-0.5 text-xs font-bold">
-            Casa {n}
+            Casa {sq.n}
           </span>
           <h3 className="text-lg font-bold text-slate-800">{sq.title}</h3>
         </div>
-        <CardBody />
+        <CardBody sq={sq} />
       </div>
     </div>
   );
 }
 
-function CardBody() {
-  const n = useGame((s) => s.activeSquare)!;
-  const sq = SQUARES[n - 1];
-  if (sq.kind === "question" || sq.kind === "alert") return <QuestionCard />;
-  if (sq.kind === "drag") return <DragCard />;
-  if (sq.kind === "classify") return <ClassifyCard />;
-  if (sq.kind === "sequence") return <SequenceCard />;
-  if (sq.kind === "didyouknow") return <DidYouKnowCard />;
-  if (sq.kind === "final") return <FinalCard />;
+function CardBody({ sq }: { sq: SquareData }) {
+  if (sq.kind === "question" || sq.kind === "alert") return <QuestionCard sq={sq} />;
+  if (sq.kind === "drag") return <DragCard sq={sq} />;
+  if (sq.kind === "classify") return <ClassifyCard sq={sq} />;
+  if (sq.kind === "sequence") return <SequenceCard sq={sq} />;
+  if (sq.kind === "didyouknow") return <DidYouKnowCard sq={sq} />;
+  if (sq.kind === "final") return <FinalCard sq={sq} />;
   return null;
 }
 
@@ -62,15 +58,19 @@ function Feedback({ kind, text }: { kind: "ok" | "err"; text: string }) {
   );
 }
 
-function QuestionCard() {
-  const n = useGame((s) => s.activeSquare)!;
-  const sq = SQUARES[n - 1] as Extract<(typeof SQUARES)[number], { kind: "question" | "alert" }>;
+type QuestionSq = Extract<SquareData, { kind: "question" | "alert" }>;
+function QuestionCard({ sq }: { sq: QuestionSq }) {
+  const award = useGame((s) => s.awardSeal);
   const [chosen, setChosen] = useState<number | null>(null);
   const [solved, setSolved] = useState(false);
 
   const choose = (i: number) => {
     setChosen(i);
-    if (sq.options[i].correct) setSolved(true);
+    if (sq.options[i].correct) {
+      setSolved(true);
+      const seal = sq.options[i].awardSeal;
+      if (seal) award(seal);
+    }
   };
 
   return (
@@ -116,9 +116,8 @@ function QuestionCard() {
   );
 }
 
-function DragCard() {
-  const n = useGame((s) => s.activeSquare)!;
-  const sq = SQUARES[n - 1] as Extract<(typeof SQUARES)[number], { kind: "drag" }>;
+type DragSq = Extract<SquareData, { kind: "drag" }>;
+function DragCard({ sq }: { sq: DragSq }) {
   const [placed, setPlaced] = useState<number[]>([]);
   const [errMsg, setErrMsg] = useState<string | null>(null);
   const correctIdxs = sq.items.map((it, i) => (it.correct ? i : -1)).filter((i) => i >= 0);
@@ -180,13 +179,11 @@ function DragCard() {
   );
 }
 
-function ClassifyCard() {
-  const n = useGame((s) => s.activeSquare)!;
-  const sq = SQUARES[n - 1] as Extract<(typeof SQUARES)[number], { kind: "classify" }>;
+type ClassifySq = Extract<SquareData, { kind: "classify" }>;
+function ClassifyCard({ sq }: { sq: ClassifySq }) {
   const [placed, setPlaced] = useState<Record<number, "A" | "B">>({});
   const [errMsg, setErrMsg] = useState<string | null>(null);
-  const allDone =
-    sq.items.every((it, i) => placed[i] === it.group);
+  const allDone = sq.items.every((it, i) => placed[i] === it.group);
 
   const onDrop = (group: "A" | "B") => (e: DragEvent) => {
     e.preventDefault();
@@ -253,11 +250,9 @@ function ClassifyCard() {
   );
 }
 
-function SequenceCard() {
-  const n = useGame((s) => s.activeSquare)!;
-  const sq = SQUARES[n - 1] as Extract<(typeof SQUARES)[number], { kind: "sequence" }>;
-  // Items shuffled deterministically
-  const shuffledIdx = [2, 0, 1]; // indexes into sq.cards
+type SequenceSq = Extract<SquareData, { kind: "sequence" }>;
+function SequenceCard({ sq }: { sq: SequenceSq }) {
+  const shuffledIdx = [2, 0, 1];
   const [order, setOrder] = useState<(number | null)[]>([null, null, null]);
   const [pool, setPool] = useState<number[]>(shuffledIdx);
   const [errMsg, setErrMsg] = useState<string | null>(null);
@@ -276,8 +271,6 @@ function SequenceCard() {
   const check = () => {
     if (!filled) return;
     if (correct) return;
-    // determine error type
-    // wash-first: hand-wash (idx 2) is first
     if (order[0] === 2) setErrMsg(sq.wrongFeedbacks.find((f) => f.when === "wash-first")!.feedback);
     else if (order[2] === 1) setErrMsg(sq.wrongFeedbacks.find((f) => f.when === "flush-last")!.feedback);
     else setErrMsg(sq.wrongFeedbacks.find((f) => f.when === "no-wash-end")!.feedback);
@@ -314,9 +307,9 @@ function SequenceCard() {
               const i = Number(e.dataTransfer.getData("text/plain"));
               if (!Number.isNaN(i)) placeAt(slot, i);
             }}
-            className="min-h-[70px] rounded-xl border-4 border-dashed border-sky-400 bg-sky-50 p-2 text-sm font-semibold flex items-center justify-center text-center"
+            className="relative min-h-[70px] rounded-xl border-4 border-dashed border-sky-400 bg-sky-50 p-2 text-sm font-semibold flex items-center justify-center text-center"
           >
-            <span className="absolute -mt-12 ml-0 text-xs text-sky-700 font-bold">{slot + 1}º</span>
+            <span className="absolute -top-5 left-1 text-xs text-sky-700 font-bold">{slot + 1}º</span>
             {idx !== null ? sq.cards[idx].label : `Solte aqui`}
           </div>
         ))}
@@ -324,9 +317,7 @@ function SequenceCard() {
       <div className="flex gap-2 mt-3">
         {filled && !correct && (
           <button
-            onClick={() => {
-              check();
-            }}
+            onClick={check}
             className="rounded-full bg-slate-800 text-white px-4 py-1.5 text-sm font-semibold"
           >
             Verificar
@@ -348,9 +339,8 @@ function SequenceCard() {
   );
 }
 
-function DidYouKnowCard() {
-  const n = useGame((s) => s.activeSquare)!;
-  const sq = SQUARES[n - 1] as Extract<(typeof SQUARES)[number], { kind: "didyouknow" }>;
+type DidYouKnowSq = Extract<SquareData, { kind: "didyouknow" }>;
+function DidYouKnowCard({ sq }: { sq: DidYouKnowSq }) {
   const award = useGame((s) => s.awardSeal);
   const seals = useGame((s) => s.seals);
   const has = sq.seal ? seals.includes(sq.seal) : true;
@@ -387,9 +377,8 @@ function DidYouKnowCard() {
   );
 }
 
-function FinalCard() {
-  const n = useGame((s) => s.activeSquare)!;
-  const sq = SQUARES[n - 1] as Extract<(typeof SQUARES)[number], { kind: "final" }>;
+type FinalSq = Extract<SquareData, { kind: "final" }>;
+function FinalCard({ sq }: { sq: FinalSq }) {
   const seals = useGame((s) => s.seals);
   const [placed, setPlaced] = useState<SealId[]>([]);
   const [errMsg, setErrMsg] = useState<string | null>(null);
@@ -398,7 +387,6 @@ function FinalCard() {
     ...sq.correctSeals.map((s) => ({ id: s, label: SEAL_LABELS[s], correct: true, sealId: s })),
     ...sq.wrongActions.map((w) => ({ id: w.label, label: w.label, correct: false })),
   ];
-  // Only include seals already won
   const visible = allItems.filter((it) => !it.correct || (it.sealId && seals.includes(it.sealId)));
   const allDone = sq.correctSeals.filter((s) => seals.includes(s)).every((s) => placed.includes(s));
 

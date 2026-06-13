@@ -1,6 +1,6 @@
 import type { SquareData } from "./types";
 
-export const SQUARES: SquareData[] = [
+const BASE_SQUARES: SquareData[] = [
   {
     n: 1,
     title: "Mãos limpas antes de comer",
@@ -658,6 +658,12 @@ export const SQUARES: SquareData[] = [
       "ambiente-saudavel",
       "quintal-cuidado",
       "objeto-pessoal",
+      "vacina-em-dia",
+      "cuidado-medico",
+      "dentista-amigo",
+      "prevencao",
+      "nariz-limpo",
+      "espirro-cuidadoso",
     ],
     wrongActions: [
       { label: "Beber água de poça", feedback: "" },
@@ -672,3 +678,191 @@ export const SQUARES: SquareData[] = [
       "Essa ação não combina com o Cartaz dos Cuidados, porque não ajuda a proteger a saúde. Observe se ela cuida do corpo, da água, dos alimentos ou do ambiente.",
   },
 ];
+
+// Variant cards: extra variations per house so the second player gets a different card.
+// Maps n -> additional variants (besides the base one).
+const EXTRA_VARIANTS: Record<number, SquareData[]> = {
+  1: [
+    {
+      n: 1,
+      title: "Mãos limpas antes de comer",
+      color: "verde",
+      kind: "question",
+      prompt: "Nina está com o nariz escorrendo. Qual atitude ajuda a cuidar da saúde?",
+      successFeedback:
+        "Muito bem! Usar papel ou lenço ajuda na higiene. Depois, o papel usado deve ir para o lixo.",
+      options: [
+        {
+          label: "Usar papel ou lenço para assoar o nariz e jogar no lixo.",
+          correct: true,
+          feedback: "",
+          awardSeal: "nariz-limpo",
+        },
+        {
+          label: "Limpar o nariz na roupa.",
+          correct: false,
+          feedback:
+            "Limpar o nariz na roupa não é uma boa atitude de higiene. A roupa pode ficar suja e espalhar secreções.",
+        },
+        {
+          label: "Deixar o papel usado em cima da mesa.",
+          correct: false,
+          feedback:
+            "O papel usado não deve ficar sobre a mesa. Depois de assoar o nariz, ele deve ser jogado no lixo.",
+        },
+      ],
+    },
+  ],
+  3: [
+    {
+      n: 3,
+      title: "Você sabia? Vacinas",
+      color: "azul",
+      kind: "didyouknow",
+      keySquare: true,
+      text: "Você sabia? As vacinas ajudam o corpo a se preparar para se defender de algumas doenças. Elas são uma forma importante de cuidado com a saúde.",
+      seal: "vacina-em-dia",
+      sealMessage:
+        "Selo conquistado! Vacinar é uma forma de proteger a saúde individual e também ajudar a proteger outras pessoas.",
+    },
+  ],
+  5: [
+    {
+      n: 5,
+      title: "Você sabia? Dentista amigo",
+      color: "azul",
+      kind: "didyouknow",
+      keySquare: true,
+      text: "Você sabia? O dentista ajuda a cuidar dos dentes e da boca. Ele pode ver se está tudo bem, orientar a escovação e ajudar a prevenir cáries.",
+      seal: "dentista-amigo",
+      sealMessage: "Selo conquistado! Cuidar dos dentes também faz parte da saúde.",
+    },
+  ],
+  7: [
+    {
+      n: 7,
+      title: "Depois de assoar o nariz",
+      color: "verde",
+      kind: "question",
+      prompt: "Depois de assoar o nariz, qual cuidado é importante?",
+      successFeedback:
+        "Isso mesmo! Depois de assoar o nariz, jogar o papel no lixo e lavar as mãos ajuda a manter a higiene.",
+      options: [
+        {
+          label: "Jogar o papel no lixo e lavar as mãos.",
+          correct: true,
+          feedback: "",
+          awardSeal: "nariz-limpo",
+        },
+        {
+          label: "Guardar o papel usado no bolso para usar depois.",
+          correct: false,
+          feedback:
+            "Guardar papel usado no bolso não é higiênico. O papel pode estar com secreções e deve ir para o lixo.",
+        },
+        {
+          label: "Mexer nos alimentos logo em seguida.",
+          correct: false,
+          feedback:
+            "Mexer nos alimentos depois de assoar o nariz, sem lavar as mãos, pode levar sujeirinhas e microrganismos para a comida.",
+        },
+      ],
+    },
+  ],
+  11: [
+    {
+      n: 11,
+      title: "Espirro cuidadoso",
+      color: "verde",
+      kind: "question",
+      prompt: "Nino vai espirrar. O que ele deve fazer?",
+      successFeedback:
+        "Muito bem! Cobrir nariz e boca ao espirrar ajuda a proteger as outras pessoas.",
+      options: [
+        {
+          label: "Cobrir o nariz e a boca com o braço dobrado ou com um lenço.",
+          correct: true,
+          feedback: "",
+          awardSeal: "espirro-cuidadoso",
+        },
+        {
+          label: "Espirrar perto do rosto de outra pessoa.",
+          correct: false,
+          feedback:
+            "Espirrar perto do rosto de outra pessoa pode espalhar gotinhas. O mais cuidadoso é cobrir nariz e boca.",
+        },
+        {
+          label: "Espirrar nas mãos e continuar brincando.",
+          correct: false,
+          feedback:
+            "Espirrar nas mãos pode deixar gotinhas nelas. Depois, essas gotinhas podem passar para objetos e alimentos. Melhor usar o braço dobrado ou um lenço.",
+        },
+      ],
+    },
+  ],
+  12: [
+    {
+      n: 12,
+      title: "Você sabia? Prevenção",
+      color: "azul",
+      kind: "didyouknow",
+      keySquare: true,
+      text: "Você sabia? Cuidar da saúde também acontece antes de ficar doente. Lavar as mãos, beber água segura, escovar os dentes, tomar vacina e visitar profissionais de saúde são cuidados importantes.",
+      seal: "prevencao",
+      sealMessage: "Selo conquistado! Prevenir é cuidar antes que o problema apareça.",
+    },
+  ],
+  19: [
+    {
+      n: 19,
+      title: "Você sabia? Cuidado médico",
+      color: "azul",
+      kind: "didyouknow",
+      keySquare: true,
+      text: "Você sabia? O médico ajuda a cuidar da saúde. Ele pode examinar, orientar a família e indicar o melhor cuidado quando a criança não está bem.",
+      seal: "cuidado-medico",
+      sealMessage:
+        "Selo conquistado! Pedir ajuda a um profissional de saúde é uma atitude de cuidado.",
+    },
+  ],
+  24: [
+    {
+      n: 24,
+      title: "Tosse e cuidado com os outros",
+      color: "verde",
+      kind: "question",
+      prompt: "Qual atitude mostra cuidado ao tossir?",
+      successFeedback:
+        "Isso mesmo! Tossir no braço dobrado ajuda a diminuir a espalhação de gotinhas.",
+      options: [
+        {
+          label: "Tossir no braço dobrado.",
+          correct: true,
+          feedback: "",
+          awardSeal: "espirro-cuidadoso",
+        },
+        {
+          label: "Tossir sobre o lanche.",
+          correct: false,
+          feedback: "Tossir sobre o lanche não é higiênico. Gotinhas podem cair no alimento.",
+        },
+        {
+          label: "Tossir perto do colega.",
+          correct: false,
+          feedback:
+            "Tossir perto do colega pode espalhar gotinhas. O mais cuidadoso é cobrir nariz e boca.",
+        },
+      ],
+    },
+  ],
+};
+
+// SQUARE_VARIANTS[n-1] = list of variants for that house. First entry is the base card.
+export const SQUARE_VARIANTS: SquareData[][] = BASE_SQUARES.map((base) => {
+  const extras = EXTRA_VARIANTS[base.n] ?? [];
+  return [base, ...extras];
+});
+
+// Legacy export: headers (color/title/kind from first variant) used by Board.
+export const SQUARES: SquareData[] = BASE_SQUARES;
+
