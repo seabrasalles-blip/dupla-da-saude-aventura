@@ -92,11 +92,11 @@ export const useGame = create<GameState>((set, get) => ({
   },
 
   movePawnTo: (target) => {
-    const { destination, turn, positions, keySeen, usedCardsByHouse } = get();
+    const { destination, turn, positions, usedCardsByHouse } = get();
     if (target !== destination) return false;
     const from = positions[turn];
     const KEYS = [3, 5, 12, 15, 19, 23, 26];
-    const passed = KEYS.find((k) => k > from && k < target && !keySeen.includes(k));
+    const passed = KEYS.find((k) => k > from && k < target);
     if (passed) {
       const { index, nextUsed } = pickVariantIndex(passed, usedCardsByHouse);
       set({
@@ -105,7 +105,6 @@ export const useGame = create<GameState>((set, get) => ({
         activeSquare: passed,
         activeVariantIndex: index,
         usedCardsByHouse: nextUsed,
-        keySeen: [...keySeen, passed],
         phase: "landing",
       });
     } else {
@@ -115,7 +114,6 @@ export const useGame = create<GameState>((set, get) => ({
         activeSquare: target,
         activeVariantIndex: index,
         usedCardsByHouse: nextUsed,
-        keySeen: keySeen.includes(target) ? keySeen : [...keySeen, target],
         phase: "landing",
       });
     }
@@ -123,12 +121,12 @@ export const useGame = create<GameState>((set, get) => ({
   },
 
   closeCardAndProceed: () => {
-    const { pendingKey, turn, positions, keySeen, usedCardsByHouse } = get();
+    const { pendingKey, turn, positions, usedCardsByHouse } = get();
     if (pendingKey !== null) {
       const KEYS = [3, 5, 12, 15, 19, 23, 26];
       const from = positions[turn];
       const target = pendingKey;
-      const nextKey = KEYS.find((k) => k > from && k < target && !keySeen.includes(k));
+      const nextKey = KEYS.find((k) => k > from && k < target);
       if (nextKey) {
         const { index, nextUsed } = pickVariantIndex(nextKey, usedCardsByHouse);
         set({
@@ -136,7 +134,6 @@ export const useGame = create<GameState>((set, get) => ({
           activeSquare: nextKey,
           activeVariantIndex: index,
           usedCardsByHouse: nextUsed,
-          keySeen: [...keySeen, nextKey],
           phase: "landing",
         });
         return;
@@ -147,7 +144,6 @@ export const useGame = create<GameState>((set, get) => ({
         activeSquare: target,
         activeVariantIndex: index,
         usedCardsByHouse: nextUsed,
-        keySeen: keySeen.includes(target) ? keySeen : [...keySeen, target],
         pendingKey: null,
         phase: "landing",
       });
