@@ -1,6 +1,6 @@
 import type { SquareData } from "./types";
 
-export const SQUARES: SquareData[] = [
+const BASE_SQUARES: SquareData[] = [
   {
     n: 1,
     title: "Mãos limpas antes de comer",
