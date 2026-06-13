@@ -30,9 +30,11 @@ function Jogar() {
     >
       {phase === "choose" && <ChooseStarter />}
       {phase === "intro" && <Intro />}
-      {(phase === "playing" || phase === "moving" || phase === "card" || phase === "rolling") && (
-        <GameScreen />
-      )}
+      {(phase === "playing" ||
+        phase === "rolling" ||
+        phase === "moving" ||
+        phase === "landing" ||
+        phase === "card") && <GameScreen />}
       {phase === "finished" && <FinalScreen />}
     </div>
   );
