@@ -4,8 +4,9 @@ import { SQUARE_VARIANTS } from "./squares";
 
 export type Player = "nina" | "nino";
 export type Phase =
-  | "choose"
+  | "cover"
   | "intro"
+  | "choose"
   | "playing"
   | "rolling"
   | "moving"
