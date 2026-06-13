@@ -64,7 +64,7 @@ function pickVariantIndex(n: number, used: Record<number, number[]>): {
 }
 
 export const useGame = create<GameState>((set, get) => ({
-  phase: "choose",
+  phase: "cover",
   turn: "nina",
   positions: { nina: 1, nino: 1 },
   seals: [],
@@ -78,8 +78,9 @@ export const useGame = create<GameState>((set, get) => ({
   soundOn: true,
 
   setPhase: (p) => set({ phase: p }),
-  chooseStarter: (p) => set({ turn: p, phase: "intro" }),
-  startGame: () => set({ phase: "playing" }),
+  goToIntro: () => set({ phase: "intro" }),
+  goToChoose: () => set({ phase: "choose" }),
+  chooseStarter: (p) => set({ turn: p, phase: "playing" }),
 
   rollDice: () => {
     // D6 limited to 1–4
