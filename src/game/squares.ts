@@ -53,7 +53,7 @@ const BASE_SQUARES: SquareData[] = [
   },
   {
     n: 3,
-    title: "Você sabia?",
+    title: "Microrganismos",
     color: "azul",
     kind: "didyouknow",
     keySquare: true,
