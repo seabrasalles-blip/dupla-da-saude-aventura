@@ -90,7 +90,7 @@ function Capa() {
             </Link>
             <Link
               to="/como-jogar"
-              className="rounded-full bg-white hover:bg-slate-50 border-4 border-slate-700 text-slate-800 font-bold px-8 py-3 text-lg shadow-xl"
+              className="rounded-full bg-[#ff8c42] hover:bg-[#e67a32] text-white font-bold px-10 py-3.5 text-lg shadow-xl shadow-orange-500/30 transition hover:scale-105"
             >
               Como jogar
             </Link>
