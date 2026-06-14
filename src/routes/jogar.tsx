@@ -9,12 +9,12 @@ import ninoAsset from "@/assets/nino.png.asset.json";
 export const Route = createFileRoute("/jogar")({
   head: () => ({
     meta: [
-      { title: "Jogar — Missão Corpo Bem Cuidado" },
+      { title: "Jogar — Corpo Bem Cuidado" },
       {
         name: "description",
-        content: "Tabuleiro do jogo Nina e Nino: ajude a Dupla da Saúde a cumprir a missão.",
+        content: "Tabuleiro do jogo Nina e Nino: ajude a Dupla da Saúde a descobrir os cuidados com o corpo.",
       },
-      { property: "og:title", content: "Jogar — Missão Corpo Bem Cuidado" },
+      { property: "og:title", content: "Jogar — Corpo Bem Cuidado" },
       { property: "og:description", content: "Tabuleiro do jogo da Dupla da Saúde." },
     ],
   }),
@@ -77,14 +77,13 @@ function Intro() {
         <div className="flex items-end gap-3 flex-row-reverse">
           <img src={ninoAsset.url} alt="Nino" className="h-44" />
           <div className="rounded-2xl bg-sky-100 border-2 border-sky-300 p-3 text-sm mb-2">
-            E eu sou o Nino! Vamos aprender por que higiene, água segura e ambiente limpo ajudam a
-            proteger a saúde.
+            E eu sou o Nino! Vamos aprender por que higiene, água segura e ambiente limpo ajudam a proteger a saúde.
           </div>
         </div>
       </div>
       <p className="mt-4 text-center text-slate-700 max-w-2xl">
-        Algumas sujeiras e microrganismos são tão pequenos que não conseguimos ver. Por isso, cuidar
-        do corpo e do ambiente é muito importante.
+        Algumas sujeiras e microrganismos são tão pequenos que não conseguimos ver. Por isso, cuidar do corpo e do
+        ambiente é muito importante.
       </p>
       <button
         onClick={goToChoose}
@@ -138,9 +137,7 @@ function GameScreen() {
         </div>
 
         <div className="rounded-2xl bg-white border-2 border-slate-200 p-3 shadow flex-1 overflow-auto">
-          <div className="text-xs font-bold text-slate-500 uppercase mb-2">
-            Selos da Dupla ({seals.length}/14)
-          </div>
+          <div className="text-xs font-bold text-slate-500 uppercase mb-2">Selos da Dupla ({seals.length}/14)</div>
 
           <div className="flex flex-wrap gap-1">
             {(Object.keys(SEAL_LABELS) as (keyof typeof SEAL_LABELS)[]).map((s) => {
@@ -175,10 +172,7 @@ function GameScreen() {
           >
             ↻ Reiniciar
           </button>
-          <Link
-            to="/"
-            className="rounded-xl bg-white border-2 border-slate-300 px-3 py-1.5 text-xs font-semibold"
-          >
+          <Link to="/" className="rounded-xl bg-white border-2 border-slate-300 px-3 py-1.5 text-xs font-semibold">
             🏠
           </Link>
         </div>
@@ -197,18 +191,15 @@ function FinalScreen() {
         <div>
           <h2 className="text-4xl font-black text-emerald-700">Missão cumprida, Dupla da Saúde!</h2>
           <p className="mt-1 text-slate-700 max-w-2xl text-sm">
-            Vocês ajudaram Nina e Nino a completar a Missão Corpo Bem Cuidado. Agora vocês sabem que
-            cuidar do corpo é mais do que ficar limpo — é também proteger a saúde, cuidar da água, dos
-            alimentos e do ambiente.
+            Vocês ajudaram Nina e Nino a completar o jogo Corpo Bem Cuidado. Agora vocês sabem que cuidar do corpo é
+            mais do que ficar limpo — é também proteger a saúde, cuidar da água, dos alimentos e do ambiente.
           </p>
         </div>
         <img src={ninoAsset.url} alt="Nino" className="h-40" />
       </div>
 
       <div className="mt-4 rounded-2xl bg-white border-4 border-violet-400 p-4 shadow-xl max-w-3xl text-left">
-        <div className="text-center font-black text-violet-800 text-lg mb-2">
-          Cartaz dos Cuidados com a Saúde
-        </div>
+        <div className="text-center font-black text-violet-800 text-lg mb-2">Cartaz dos Cuidados com a Saúde</div>
         <ul className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-slate-700">
           {[
             "Lavar as mãos com água e sabonete.",
@@ -226,13 +217,13 @@ function FinalScreen() {
             "Manter as vacinas em dia.",
             "Visitar médico e dentista para prevenir, não só quando estamos doentes.",
           ].map((t) => (
-            <li key={t} className="flex gap-1.5"><span>🏅</span>{t}</li>
+            <li key={t} className="flex gap-1.5">
+              <span>🏅</span>
+              {t}
+            </li>
           ))}
         </ul>
-        <div className="mt-2 text-center text-xs text-slate-500">
-          Selos conquistados: {seals.length}/14
-        </div>
-
+        <div className="mt-2 text-center text-xs text-slate-500">Selos conquistados: {seals.length}/14</div>
       </div>
 
       <div className="mt-4 flex gap-3">
@@ -242,10 +233,7 @@ function FinalScreen() {
         >
           Jogar novamente
         </button>
-        <Link
-          to="/"
-          className="rounded-full bg-white border-2 border-slate-400 text-slate-700 font-bold px-6 py-2"
-        >
+        <Link to="/" className="rounded-full bg-white border-2 border-slate-400 text-slate-700 font-bold px-6 py-2">
           Voltar ao início
         </Link>
       </div>
