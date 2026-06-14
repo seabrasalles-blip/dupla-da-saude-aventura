@@ -35,6 +35,39 @@ function Capa() {
         <div className="absolute top-1/2 left-6 text-5xl opacity-25">🗑️</div>
         <div className="absolute top-1/3 right-8 text-5xl opacity-25">🧴</div>
 
+        {/* Decorative board trail */}
+        <svg viewBox="0 0 1200 675" className="absolute inset-0 w-full h-full pointer-events-none">
+          <path
+            d="M -20 540 Q 200 460 380 520 T 760 500 T 1180 460"
+            fill="none"
+            stroke="#ffd93d"
+            strokeWidth="18"
+            strokeLinecap="round"
+            opacity="0.55"
+            strokeDasharray="4 18"
+          />
+          {[
+            [120, 530],
+            [320, 510],
+            [520, 510],
+            [720, 498],
+            [920, 480],
+            [1100, 466],
+          ].map(([x, y], i) => (
+            <g key={i} opacity="0.85">
+              <circle cx={x} cy={y + 4} r="22" fill="#1f2a44" opacity="0.12" />
+              <circle
+                cx={x}
+                cy={y}
+                r="22"
+                fill={i === 5 ? "#ff8c42" : i % 2 === 0 ? "#3fa9f5" : "#7ed957"}
+                stroke="#fff"
+                strokeWidth="4"
+              />
+            </g>
+          ))}
+        </svg>
+
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-8">
           <img src={ninaAsset.url} alt="Nina" className="absolute left-20 bottom-12 h-72 drop-shadow-xl" />
           <img src={ninoAsset.url} alt="Nino" className="absolute right-20 bottom-12 h-72 drop-shadow-xl" />
