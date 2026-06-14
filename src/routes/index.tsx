@@ -40,14 +40,12 @@ function Capa() {
           <img src={ninoAsset.url} alt="Nino" className="absolute right-20 bottom-12 h-72 drop-shadow-xl" />
 
           <h1 className="text-5xl md:text-6xl font-black text-emerald-800 drop-shadow-sm">Nina e Nino em:</h1>
-          <h2 className="mt-2 text-4xl md:text-5xl font-black text-orange-600 drop-shadow-sm">
-            Missão Corpo Bem Cuidado
-          </h2>
+          <h2 className="mt-2 text-4xl md:text-5xl font-black text-orange-600 drop-shadow-sm">Corpo Bem Cuidado</h2>
           <p className="mt-4 text-lg text-slate-700 font-medium max-w-xl">
             Um jogo sobre higiene, saúde e cuidado com o ambiente.
           </p>
           <p className="mt-3 text-base text-slate-600 max-w-md">
-            Hoje é dia de missão! Ajude Nina e Nino a descobrir cuidados que protegem a saúde.
+            Hoje é dia de descobertas! Ajude Nina e Nino a encontrar cuidados que protegem a saúde.
           </p>
 
           <div className="mt-8 flex gap-4">
@@ -55,7 +53,7 @@ function Capa() {
               to="/jogar"
               className="rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-10 py-3.5 text-lg shadow-xl shadow-emerald-600/30 transition hover:scale-105"
             >
-              ▶ Jogar
+              Jogar
             </Link>
             <Link
               to="/como-jogar"
