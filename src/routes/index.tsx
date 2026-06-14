@@ -5,13 +5,12 @@ import ninoAsset from "@/assets/nino.png.asset.json";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Nina e Nino em: Missão Corpo Bem Cuidado" },
+      { title: "Nina e Nino em: Corpo Bem Cuidado" },
       {
         name: "description",
-        content:
-          "Jogo digital de tabuleiro para 2 jogadores sobre higiene, saúde e cuidado com o ambiente.",
+        content: "Jogo digital de tabuleiro para 2 jogadores sobre higiene, saúde e cuidado com o ambiente.",
       },
-      { property: "og:title", content: "Nina e Nino em: Missão Corpo Bem Cuidado" },
+      { property: "og:title", content: "Nina e Nino em: Corpo Bem Cuidado" },
       {
         property: "og:description",
         content: "Um jogo sobre higiene, saúde e cuidado com o ambiente.",
@@ -40,9 +39,7 @@ function Capa() {
           <img src={ninaAsset.url} alt="Nina" className="absolute left-20 bottom-12 h-72 drop-shadow-xl" />
           <img src={ninoAsset.url} alt="Nino" className="absolute right-20 bottom-12 h-72 drop-shadow-xl" />
 
-          <h1 className="text-5xl md:text-6xl font-black text-emerald-800 drop-shadow-sm">
-            Nina e Nino em:
-          </h1>
+          <h1 className="text-5xl md:text-6xl font-black text-emerald-800 drop-shadow-sm">Nina e Nino em:</h1>
           <h2 className="mt-2 text-4xl md:text-5xl font-black text-orange-600 drop-shadow-sm">
             Missão Corpo Bem Cuidado
           </h2>
