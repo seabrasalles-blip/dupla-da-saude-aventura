@@ -183,7 +183,7 @@ const BASE_SQUARES: SquareData[] = [
   },
   {
     n: 9,
-    title: "Você sabia? Frutas e verduras",
+    title: "Frutas e verduras",
     color: "azul",
     kind: "didyouknow",
     text: "Frutas, verduras e legumes podem trazer sujeirinhas da terra, do transporte ou do lugar onde ficaram guardados. Por isso, eles precisam ser lavados antes de comer.",
@@ -248,7 +248,7 @@ const BASE_SQUARES: SquareData[] = [
   },
   {
     n: 12,
-    title: "Você sabia? Água tratada",
+    title: "Água tratada",
     color: "azul",
     kind: "didyouknow",
     keySquare: true,
@@ -326,7 +326,7 @@ const BASE_SQUARES: SquareData[] = [
   },
   {
     n: 15,
-    title: "Você sabia? O que são verminoses?",
+    title: "O que são verminoses?",
     color: "azul",
     kind: "didyouknow",
     keySquare: true,
@@ -416,7 +416,7 @@ const BASE_SQUARES: SquareData[] = [
   },
   {
     n: 19,
-    title: "Você sabia? O que é saneamento básico?",
+    title: "O que é saneamento básico?",
     color: "azul",
     kind: "didyouknow",
     keySquare: true,
@@ -498,7 +498,7 @@ const BASE_SQUARES: SquareData[] = [
   },
   {
     n: 23,
-    title: "Você sabia? Água parada",
+    title: "Água parada",
     color: "azul",
     kind: "didyouknow",
     keySquare: true,
@@ -557,7 +557,7 @@ const BASE_SQUARES: SquareData[] = [
   },
   {
     n: 26,
-    title: "Você sabia? Escova de dentes é pessoal",
+    title: "Escova de dentes é pessoal",
     color: "azul",
     kind: "didyouknow",
     keySquare: true,
@@ -730,22 +730,22 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
   3: [
     {
       n: 3,
-      title: "Você sabia? Vacinas",
+      title: "Vacinas",
       color: "azul",
       kind: "didyouknow",
       keySquare: true,
-      text: "Você sabia? As vacinas ajudam o corpo a se preparar para se defender de algumas doenças. Elas são uma forma importante de cuidado com a saúde.",
+      text: "As vacinas ajudam o corpo a se preparar para se defender de algumas doenças. Elas são uma forma importante de cuidado com a saúde.",
       seal: "vacina-em-dia",
       sealMessage:
         "Selo conquistado! Vacinar é uma forma de proteger a saúde individual e também ajudar a proteger outras pessoas.",
     },
     {
       n: 3,
-      title: "Você sabia? Mãos espalham microrganismos",
+      title: "Mãos espalham microrganismos",
       color: "azul",
       kind: "didyouknow",
       keySquare: true,
-      text: "Você sabia? As mãos tocam em muitas coisas durante o dia. Por isso, elas podem carregar microrganismos de um lugar para outro. Lavar as mãos várias vezes ao dia é um cuidado importante.",
+      text: "As mãos tocam em muitas coisas durante o dia. Por isso, elas podem carregar microrganismos de um lugar para outro. Lavar as mãos várias vezes ao dia é um cuidado importante.",
       seal: "maos-limpas",
       sealMessage: "Selo conquistado! Mãos limpas ajudam a proteger todo o corpo.",
     },
@@ -783,11 +783,11 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
   5: [
     {
       n: 5,
-      title: "Você sabia? Dentista amigo",
+      title: "Dentista amigo",
       color: "azul",
       kind: "didyouknow",
       keySquare: true,
-      text: "Você sabia? O dentista ajuda a cuidar dos dentes e da boca. Ele pode ver se está tudo bem, orientar a escovação e ajudar a prevenir cáries.",
+      text: "O dentista ajuda a cuidar dos dentes e da boca. Ele pode ver se está tudo bem, orientar a escovação e ajudar a prevenir cáries.",
       seal: "dentista-amigo",
       sealMessage: "Selo conquistado! Cuidar dos dentes também faz parte da saúde.",
     },
@@ -895,10 +895,10 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
   9: [
     {
       n: 9,
-      title: "Você sabia? Lavando frutas",
+      title: "Lavando frutas",
       color: "azul",
       kind: "didyouknow",
-      text: "Você sabia? Mesmo as frutas que parecem limpas podem ter restos de terra, agrotóxico ou microrganismos na casca. Por isso, lavar bem em água corrente antes de comer é um cuidado importante.",
+      text: "Mesmo as frutas que parecem limpas podem ter restos de terra, agrotóxico ou microrganismos na casca. Por isso, lavar bem em água corrente antes de comer é um cuidado importante.",
       seal: "alimentos-lavados",
       sealMessage: "Selo conquistado! Lavar os alimentos é um cuidado simples que protege a saúde.",
     },
@@ -988,11 +988,11 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
   12: [
     {
       n: 12,
-      title: "Você sabia? Prevenção",
+      title: "Prevenção",
       color: "azul",
       kind: "didyouknow",
       keySquare: true,
-      text: "Você sabia? Cuidar da saúde também acontece antes de ficar doente. Lavar as mãos, beber água segura, escovar os dentes, tomar vacina e visitar profissionais de saúde são cuidados importantes.",
+      text: "Cuidar da saúde também acontece antes de ficar doente. Lavar as mãos, beber água segura, escovar os dentes, tomar vacina e visitar profissionais de saúde são cuidados importantes.",
       seal: "prevencao",
       sealMessage: "Selo conquistado! Prevenir é cuidar antes que o problema apareça.",
     },
@@ -1002,7 +1002,7 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
       color: "azul",
       kind: "didyouknow",
       keySquare: true,
-      text: "Você sabia? Quando não há água tratada ou filtrada, um adulto pode ferver a água em fogo alto por alguns minutos. Isso ajuda a eliminar muitos microrganismos.",
+      text: "Quando não há água tratada ou filtrada, um adulto pode ferver a água em fogo alto por alguns minutos. Isso ajuda a eliminar muitos microrganismos.",
       seal: "agua-segura",
       sealMessage: "Selo conquistado! Saber escolher água segura protege a Dupla da Saúde.",
     },
@@ -1033,11 +1033,11 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
   15: [
     {
       n: 15,
-      title: "Você sabia? Calçados protegem",
+      title: "Calçados protegem",
       color: "azul",
       kind: "didyouknow",
       keySquare: true,
-      text: "Você sabia? Alguns vermes vivem no solo e podem entrar no corpo pelos pés descalços. Usar calçados em quintais, terrenos e locais com lixo ajuda a proteger contra verminoses.",
+      text: "Alguns vermes vivem no solo e podem entrar no corpo pelos pés descalços. Usar calçados em quintais, terrenos e locais com lixo ajuda a proteger contra verminoses.",
       seal: "corpo-protegido",
       sealMessage: "Selo conquistado! Pés protegidos também são saúde.",
     },
@@ -1096,21 +1096,21 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
   19: [
     {
       n: 19,
-      title: "Você sabia? Cuidado médico",
+      title: "Cuidado médico",
       color: "azul",
       kind: "didyouknow",
       keySquare: true,
-      text: "Você sabia? O médico ajuda a cuidar da saúde. Ele pode examinar, orientar a família e indicar o melhor cuidado quando a criança não está bem.",
+      text: "O médico ajuda a cuidar da saúde. Ele pode examinar, orientar a família e indicar o melhor cuidado quando a criança não está bem.",
       seal: "cuidado-medico",
       sealMessage: "Selo conquistado! Pedir ajuda a um profissional de saúde é uma atitude de cuidado.",
     },
     {
       n: 19,
-      title: "Você sabia? Coleta de lixo",
+      title: "Coleta de lixo",
       color: "azul",
       kind: "didyouknow",
       keySquare: true,
-      text: "Você sabia? Quando o lixo é recolhido e tem destino certo, ele para de acumular nas ruas. Isso ajuda a manter o ambiente limpo e a saúde de todos protegida.",
+      text: "Quando o lixo é recolhido e tem destino certo, ele para de acumular nas ruas. Isso ajuda a manter o ambiente limpo e a saúde de todos protegida.",
       seal: "ambiente-saudavel",
       sealMessage: "Selo conquistado! Cuidar do lixo é cuidar do ambiente e das pessoas.",
     },
@@ -1174,11 +1174,11 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
   23: [
     {
       n: 23,
-      title: "Você sabia? Dengue e água parada",
+      title: "Dengue e água parada",
       color: "azul",
       kind: "didyouknow",
       keySquare: true,
-      text: "Você sabia? O mosquito da dengue coloca seus ovos em água parada limpa. Por isso, tampar caixas d'água, virar baldes vazios e trocar a água dos vasinhos das plantas ajuda muito.",
+      text: "O mosquito da dengue coloca seus ovos em água parada limpa. Por isso, tampar caixas d'água, virar baldes vazios e trocar a água dos vasinhos das plantas ajuda muito.",
       seal: "quintal-cuidado",
       sealMessage: "Selo conquistado! Cuidar do quintal evita mosquitos e doenças.",
     },
@@ -1230,11 +1230,11 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
   26: [
     {
       n: 26,
-      title: "Você sabia? Toalha pessoal",
+      title: "Toalha pessoal",
       color: "azul",
       kind: "didyouknow",
       keySquare: true,
-      text: "Você sabia? Toalha de rosto e toalha de banho também são objetos pessoais. Cada um deve usar a sua, principalmente quando alguém está com algum problema de pele ou resfriado.",
+      text: "Toalha de rosto e toalha de banho também são objetos pessoais. Cada um deve usar a sua, principalmente quando alguém está com algum problema de pele ou resfriado.",
       seal: "objeto-pessoal",
       sealMessage: "Selo conquistado! Itens pessoais cuidam de cada um.",
     },
