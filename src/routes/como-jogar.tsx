@@ -41,7 +41,6 @@ function ComoJogar() {
           tentar novamente.
         </p>
         <p>Se uma casa “Você sabia?” estiver no caminho até a casa sorteada, ela será aberta automaticamente. Assim, você não perde nenhuma informação importante sobre a saúde.</p>
-        </p>
         <p>No final, a dupla monta o <b>Cartaz dos Cuidados com a Saúde</b>.</p>
       </div>
 
