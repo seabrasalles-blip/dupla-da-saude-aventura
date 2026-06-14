@@ -252,9 +252,18 @@ function ClassifyCard({ sq }: { sq: ClassifySq }) {
 
 type SequenceSq = Extract<SquareData, { kind: "sequence" }>;
 function SequenceCard({ sq }: { sq: SequenceSq }) {
-  const shuffledIdx = [2, 0, 1];
-  const [order, setOrder] = useState<(number | null)[]>([null, null, null]);
-  const [pool, setPool] = useState<number[]>(shuffledIdx);
+  const n = sq.cards.length;
+  const initialPool = () => {
+    const idxs = Array.from({ length: n }, (_, i) => i);
+    // simple deterministic shuffle: reverse then swap pairs
+    const shuffled = [...idxs].reverse();
+    for (let i = 0; i + 1 < shuffled.length; i += 2) {
+      [shuffled[i], shuffled[i + 1]] = [shuffled[i + 1], shuffled[i]];
+    }
+    return shuffled;
+  };
+  const [order, setOrder] = useState<(number | null)[]>(() => Array(n).fill(null));
+  const [pool, setPool] = useState<number[]>(initialPool);
   const [errMsg, setErrMsg] = useState<string | null>(null);
   const filled = order.every((x) => x !== null);
   const correct = filled && order.every((x, i) => x === i);
@@ -268,24 +277,46 @@ function SequenceCard({ sq }: { sq: SequenceSq }) {
     setErrMsg(null);
   };
 
+  const findFeedback = (keys: string[]) =>
+    sq.wrongFeedbacks.find((f) => keys.includes(f.when))?.feedback;
+
   const check = () => {
-    if (!filled) return;
-    if (correct) return;
-    if (order[0] === 2) setErrMsg(sq.wrongFeedbacks.find((f) => f.when === "wash-first")!.feedback);
-    else if (order[2] === 1) setErrMsg(sq.wrongFeedbacks.find((f) => f.when === "flush-last")!.feedback);
-    else setErrMsg(sq.wrongFeedbacks.find((f) => f.when === "no-wash-end")!.feedback);
+    if (!filled || correct) return;
+    const pos = (idx: number) => order.indexOf(idx);
+    let msg: string | undefined;
+    // Casa 6 rules (5 cards) — also tolerated for other sequences via key fallback
+    if (n >= 5 && pos(4) >= 0 && pos(2) >= 0 && pos(4) < pos(2)) {
+      msg = findFeedback(["guardar-antes", "flush-last"]);
+    } else if (n >= 4 && pos(3) >= 0 && pos(2) >= 0 && pos(3) < pos(2)) {
+      msg = findFeedback(["enxaguar-antes"]);
+    } else if (
+      pos(2) >= 0 &&
+      ((pos(0) >= 0 && pos(2) < pos(0)) || (pos(1) >= 0 && pos(2) < pos(1)))
+    ) {
+      msg = findFeedback(["escovar-sem-preparar", "wash-first"]);
+    }
+    // Casa 12 legacy rules (3 cards)
+    if (!msg && n === 3) {
+      if (order[0] === 2) msg = findFeedback(["wash-first"]);
+      else if (order[2] === 1) msg = findFeedback(["flush-last"]);
+      else msg = findFeedback(["no-wash-end"]);
+    }
+    setErrMsg(msg ?? sq.wrongFeedbacks[0]?.feedback ?? "Tente outra ordem.");
   };
 
   const reset = () => {
-    setOrder([null, null, null]);
-    setPool(shuffledIdx);
+    setOrder(Array(n).fill(null));
+    setPool(initialPool());
     setErrMsg(null);
   };
+
+  const slotCols =
+    n <= 3 ? "grid-cols-3" : "grid-cols-2 sm:grid-cols-3 md:grid-cols-5";
 
   return (
     <div>
       <p className="text-base text-slate-700 mb-3">{sq.prompt}</p>
-      <div className="flex gap-2 mb-3">
+      <div className="flex flex-wrap gap-2 mb-3">
         {pool.map((i) => (
           <div
             key={i}
@@ -297,7 +328,7 @@ function SequenceCard({ sq }: { sq: SequenceSq }) {
           </div>
         ))}
       </div>
-      <div className="grid grid-cols-3 gap-2">
+      <div className={`grid ${slotCols} gap-2`}>
         {order.map((idx, slot) => (
           <div
             key={slot}

@@ -99,24 +99,40 @@ const BASE_SQUARES: SquareData[] = [
     n: 6,
     title: "Depois de comer doce",
     color: "verde",
-    kind: "question",
-    prompt: "Depois de comer doce, qual atitude mostra um cuidado com os dentes?",
-    successFeedback: "Muito bem! Escovar os dentes ajuda a retirar restos de alimentos e proteger a boca.",
-    options: [
-      { label: "Criança escovando os dentes.", correct: true, feedback: "" },
+    kind: "sequence",
+    prompt:
+      "Depois de comer doce, ajude Nino a organizar os passos para cuidar dos dentes. Arraste os cartões para a ordem correta.",
+    cards: [
+      { label: "Pegar a escova de dentes" },
+      { label: "Colocar creme dental na escova" },
+      { label: "Escovar todos os dentes com cuidado" },
+      { label: "Enxaguar a boca" },
+      { label: "Guardar a escova no lugar certo" },
+    ],
+    wrongFeedbacks: [
       {
-        label: "Criança dormindo sem escovar os dentes.",
-        correct: false,
+        when: "guardar-antes",
         feedback:
-          "Dormir sem escovar os dentes deixa restos de comida na boca por muito tempo. Isso pode favorecer o aparecimento de cáries.",
+          "Guardar a escova antes de usar não limpa os dentes. Primeiro precisamos escovar com cuidado; depois guardamos a escova.",
       },
       {
-        label: "Criança guardando a escova na mochila sem usar.",
-        correct: false,
+        when: "enxaguar-antes",
         feedback:
-          "Guardar a escova sem usar não limpa os dentes. O cuidado acontece quando escovamos os dentes com atenção.",
+          "Enxaguar antes pode até molhar a boca, mas não substitui a escovação. A limpeza acontece quando escovamos os dentes com atenção.",
+      },
+      {
+        when: "escovar-sem-preparar",
+        feedback:
+          "Para escovar bem, primeiro precisamos preparar a escova. Pegue a escova, coloque o creme dental e depois faça a escovação.",
+      },
+      {
+        when: "escovar-fora-de-ordem",
+        feedback:
+          "Escovar todos os dentes é a parte principal do cuidado. É esse passo que ajuda a limpar restos de alimentos e proteger a boca.",
       },
     ],
+    successFeedback:
+      "Muito bem! Depois de comer doce, escovar os dentes ajuda a retirar restos de alimentos e proteger a boca contra cáries.",
   },
   {
     n: 7,
