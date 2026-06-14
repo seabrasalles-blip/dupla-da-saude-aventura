@@ -1,6 +1,30 @@
-import { useState, type DragEvent } from "react";
+import { useMemo, useState, type DragEvent } from "react";
 import { SEAL_LABELS, type SealId, type SquareData } from "@/game/types";
 import { useGame } from "@/game/store";
+
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Shuffle ensuring result is not strictly equal to the original sequence [0..n-1]
+function shuffleNotIdentity(n: number): number[] {
+  if (n <= 1) return Array.from({ length: n }, (_, i) => i);
+  let out = shuffle(Array.from({ length: n }, (_, i) => i));
+  let tries = 0;
+  while (out.every((v, i) => v === i) && tries < 10) {
+    out = shuffle(out);
+    tries++;
+  }
+  if (out.every((v, i) => v === i)) {
+    [out[0], out[1]] = [out[1], out[0]];
+  }
+  return out;
+}
 
 export function ActiveCard() {
   const phase = useGame((s) => s.phase);
@@ -63,12 +87,13 @@ function QuestionCard({ sq }: { sq: QuestionSq }) {
   const award = useGame((s) => s.awardSeal);
   const [chosen, setChosen] = useState<number | null>(null);
   const [solved, setSolved] = useState(false);
+  const order = useMemo(() => shuffle(sq.options.map((_, i) => i)), [sq]);
 
-  const choose = (i: number) => {
-    setChosen(i);
-    if (sq.options[i].correct) {
+  const choose = (origIdx: number) => {
+    setChosen(origIdx);
+    if (sq.options[origIdx].correct) {
       setSolved(true);
-      const seal = sq.options[i].awardSeal;
+      const seal = sq.options[origIdx].awardSeal;
       if (seal) award(seal);
     }
   };
@@ -77,14 +102,15 @@ function QuestionCard({ sq }: { sq: QuestionSq }) {
     <div>
       <p className="text-base text-slate-700 mb-3">{sq.prompt}</p>
       <div className="space-y-2">
-        {sq.options.map((o, i) => {
-          const picked = chosen === i;
+        {order.map((origIdx, displayIdx) => {
+          const o = sq.options[origIdx];
+          const picked = chosen === origIdx;
           const showState = picked || (solved && o.correct);
           return (
             <button
-              key={i}
+              key={origIdx}
               disabled={solved}
-              onClick={() => choose(i)}
+              onClick={() => choose(origIdx)}
               className={`w-full text-left rounded-xl border-2 px-4 py-2.5 font-medium transition ${
                 showState
                   ? o.correct
@@ -93,7 +119,7 @@ function QuestionCard({ sq }: { sq: QuestionSq }) {
                   : "bg-white border-slate-300 hover:border-slate-500"
               }`}
             >
-              <span className="font-bold mr-2">{String.fromCharCode(65 + i)}.</span>
+              <span className="font-bold mr-2">{String.fromCharCode(65 + displayIdx)}.</span>
               {o.label}
             </button>
           );
@@ -136,12 +162,14 @@ function DragCard({ sq }: { sq: DragSq }) {
     }
   };
 
+  const order = useMemo(() => shuffle(sq.items.map((_, i) => i)), [sq]);
+
   return (
     <div>
       <p className="text-base text-slate-700 mb-3">{sq.prompt}</p>
       <div className="grid grid-cols-[1fr_220px] gap-4">
         <div className="flex flex-wrap gap-2 content-start">
-          {sq.items.map((it, i) =>
+          {order.map((i) =>
             placed.includes(i) ? null : (
               <div
                 key={i}
@@ -149,7 +177,7 @@ function DragCard({ sq }: { sq: DragSq }) {
                 onDragStart={(e) => e.dataTransfer.setData("text/plain", String(i))}
                 className="cursor-grab rounded-lg bg-white border-2 border-slate-400 px-3 py-1.5 text-sm font-semibold shadow-sm hover:border-slate-700"
               >
-                {it.label}
+                {sq.items[i].label}
               </div>
             ),
           )}
@@ -198,11 +226,13 @@ function ClassifyCard({ sq }: { sq: ClassifySq }) {
     }
   };
 
+  const order = useMemo(() => shuffle(sq.items.map((_, i) => i)), [sq]);
+
   return (
     <div>
       <p className="text-base text-slate-700 mb-3">{sq.prompt}</p>
       <div className="flex flex-wrap gap-2 mb-3">
-        {sq.items.map((it, i) =>
+        {order.map((i) =>
           placed[i] ? null : (
             <div
               key={i}
@@ -210,7 +240,7 @@ function ClassifyCard({ sq }: { sq: ClassifySq }) {
               onDragStart={(e) => e.dataTransfer.setData("text/plain", String(i))}
               className="cursor-grab rounded-lg bg-white border-2 border-slate-400 px-3 py-1.5 text-sm font-semibold shadow-sm hover:border-slate-700"
             >
-              {it.label}
+              {sq.items[i].label}
             </div>
           ),
         )}
@@ -253,15 +283,7 @@ function ClassifyCard({ sq }: { sq: ClassifySq }) {
 type SequenceSq = Extract<SquareData, { kind: "sequence" }>;
 function SequenceCard({ sq }: { sq: SequenceSq }) {
   const n = sq.cards.length;
-  const initialPool = () => {
-    const idxs = Array.from({ length: n }, (_, i) => i);
-    // simple deterministic shuffle: reverse then swap pairs
-    const shuffled = [...idxs].reverse();
-    for (let i = 0; i + 1 < shuffled.length; i += 2) {
-      [shuffled[i], shuffled[i + 1]] = [shuffled[i + 1], shuffled[i]];
-    }
-    return shuffled;
-  };
+  const initialPool = () => shuffleNotIdentity(n);
   const [order, setOrder] = useState<(number | null)[]>(() => Array(n).fill(null));
   const [pool, setPool] = useState<number[]>(initialPool);
   const [errMsg, setErrMsg] = useState<string | null>(null);
@@ -414,11 +436,15 @@ function FinalCard({ sq }: { sq: FinalSq }) {
   const [placed, setPlaced] = useState<SealId[]>([]);
   const [errMsg, setErrMsg] = useState<string | null>(null);
 
-  const allItems: { id: string; label: string; correct: boolean; sealId?: SealId }[] = [
-    ...sq.correctSeals.map((s) => ({ id: s, label: SEAL_LABELS[s], correct: true, sealId: s })),
-    ...sq.wrongActions.map((w) => ({ id: w.label, label: w.label, correct: false })),
-  ];
-  const visible = allItems.filter((it) => !it.correct || (it.sealId && seals.includes(it.sealId)));
+  const allItems: { id: string; label: string; correct: boolean; sealId?: SealId }[] = useMemo(
+    () => [
+      ...sq.correctSeals.map((s) => ({ id: s, label: SEAL_LABELS[s], correct: true, sealId: s as SealId })),
+      ...sq.wrongActions.map((w) => ({ id: w.label, label: w.label, correct: false })),
+    ],
+    [sq],
+  );
+  const shuffledItems = useMemo(() => shuffle(allItems), [allItems]);
+  const visible = shuffledItems.filter((it) => !it.correct || (it.sealId && seals.includes(it.sealId)));
   const allDone = sq.correctSeals.filter((s) => seals.includes(s)).every((s) => placed.includes(s));
 
   const onDrop = (e: DragEvent) => {
@@ -445,13 +471,8 @@ function FinalCard({ sq }: { sq: FinalSq }) {
               key={it.id}
               draggable
               onDragStart={(e) => e.dataTransfer.setData("text/plain", it.id)}
-              className={`cursor-grab rounded-full border-2 px-3 py-1.5 text-xs font-bold shadow-sm ${
-                it.correct
-                  ? "bg-amber-200 border-amber-500 text-amber-900"
-                  : "bg-rose-100 border-rose-400 text-rose-800"
-              }`}
+              className="cursor-grab rounded-lg border-2 border-slate-400 bg-white px-3 py-1.5 text-xs font-bold text-slate-800 shadow-sm hover:border-slate-700"
             >
-              {it.correct ? "🏅 " : ""}
               {it.label}
             </div>
           ))}
