@@ -28,7 +28,6 @@ function Jogar() {
       className="relative mx-auto bg-gradient-to-br from-sky-50 to-emerald-50 overflow-hidden"
       style={{ width: 1200, height: 675 }}
     >
-      {phase === "cover" && <Capa />}
       {phase === "intro" && <Intro />}
       {phase === "choose" && <ChooseStarter />}
       {(phase === "playing" ||
