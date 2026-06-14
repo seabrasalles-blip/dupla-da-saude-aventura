@@ -1,26 +1,40 @@
-# Adicionar "Decorative board trail" na tela inicial
+# Ajustes de aleatoriedade e cor neutra no Cartaz
 
-Vou portar o elemento decorativo do projeto `nina-cuida-bem` para a `Capa` em `src/routes/index.tsx`, mantendo o layout, cores, imagens da Nina/Nino e botões atuais intactos.
+## Problemas relatados
+1. Em perguntas de múltipla escolha (`question`/`alert`), a resposta correta quase sempre fica na letra **A**.
+2. No desafio de sequência (Casa 6), os cartões já aparecem na ordem correta.
+3. Nas atividades de arrastar (`drag`) e classificar (`classify`), os itens corretos aparecem antes dos errados, denunciando a resposta.
+4. Na atividade final (Cartaz dos Cuidados), os selos corretos vêm em **amarelo/dourado** e as ações erradas em **vermelho**, o que entrega visualmente qual é a resposta correta.
 
-## O que é o elemento
+## O que vai mudar (apenas em `src/components/game/ActiveCard.tsx`)
 
-Uma trilha decorativa em SVG sobreposta ao fundo, formada por:
-- Um caminho ondulado tracejado em amarelo (`#ffd93d`) atravessando a parte inferior.
-- 6 "casas" do tabuleiro: círculos coloridos alternando azul (`#3fa9f5`), verde (`#7ed957`) e o último laranja (`#ff8c42`), com borda branca e sombra suave.
+Todos os ajustes ficam no componente de renderização — os dados em `src/game/squares.ts` não serão alterados, então o conteúdo educacional, feedbacks e gabaritos permanecem iguais.
 
-## Alteração
+### 1. Helper de embaralhamento
+Adicionar uma função `shuffle()` (Fisher–Yates) e usá-la dentro de `useMemo(..., [sq])` em cada card, para que a ordem seja sorteada **uma vez por abertura da casa** (não muda a cada re-render, evitando que o card "pule" enquanto o aluno pensa).
 
-Em `src/routes/index.tsx`, dentro do container `relative w-full h-full overflow-hidden`, adicionar — logo após os ícones decorativos (🧼🪥…) e antes do bloco `absolute inset-0 flex flex-col…` — um `<svg>` com:
+### 2. `QuestionCard` (perguntas e alertas)
+- Calcular `order = useMemo(() => shuffle(sq.options.map((_,i)=>i)), [sq])`.
+- Renderizar `order.map(i => sq.options[i])` e usar o índice embaralhado tanto para exibir A/B/C quanto para checar `correct` e `feedback`.
+- Resultado: a alternativa correta cai aleatoriamente em A, B ou C a cada partida.
 
-- `viewBox="0 0 1200 675"`, `className="absolute inset-0 w-full h-full pointer-events-none"`.
-- `<path>` tracejado (`strokeDasharray="4 18"`, `opacity="0.55"`) com `d="M -20 540 Q 200 460 380 520 T 760 500 T 1180 460"`.
-- 6 grupos `<g>` com sombra (círculo escuro `opacity=0.12`) + círculo colorido com `stroke="#fff" strokeWidth="4"`, nas posições `[120,530] [320,510] [520,510] [720,498] [920,480] [1100,466]`.
+### 3. `DragCard` e `ClassifyCard`
+- Embaralhar a lista de itens exibidos (`sq.items`) via `useMemo`, mantendo o mapeamento original para feedback e validação.
+- Itens corretos e errados ficam misturados na origem.
 
-Por estar posicionado entre os ícones de fundo e o conteúdo central (texto/botões/Nina/Nino), a trilha fica visualmente atrás dos personagens e não interfere com cliques (`pointer-events-none`).
+### 4. `SequenceCard` (Casa 6 e Casa 12)
+- O componente já tinha um "shuffle determinístico" (reverse + swap), que ainda pode coincidir com a ordem original em alguns casos. Trocar por `shuffle()` real com `useMemo`, garantindo que **nunca** seja igual à ordem correta (se sortear igual, sortear de novo).
 
-## Não será alterado
+### 5. `FinalCard` (Cartaz dos Cuidados) — cor única
+- Remover o `if (it.correct) ... else ...` que aplica `bg-amber-200/border-amber-500` vs `bg-rose-100/border-rose-400` nos cartões arrastáveis.
+- Aplicar **uma única cor neutra** para todos os itens (ex.: `bg-white border-slate-400 text-slate-800`), e remover também o emoji 🏅 que só aparece nos corretos.
+- A área de soltar (Cartaz) e os selos **já colocados** podem continuar dourados — isso é feedback de acerto, não dica prévia.
+- Embaralhar também a lista `visible` no `FinalCard` para que corretos/errados não saiam agrupados.
 
-- Cores, tipografia, gradiente de fundo.
-- Imagens e posições da Nina e do Nino.
-- Títulos, parágrafos e botões "Jogar" / "Como jogar".
-- Demais rotas (`/jogar`, `/como-jogar`) e lógica do jogo.
+## O que NÃO muda
+- Conteúdo, textos, feedbacks, selos, regras de pontuação.
+- Layout geral, cores do tabuleiro, tipografia, fluxo do jogo.
+- Arquivo `src/game/squares.ts`.
+
+## Verificação
+Abrir uma casa de pergunta várias vezes no preview e conferir que a alternativa correta aparece em posições diferentes; abrir a Casa 6 e ver os 5 cartões fora de ordem; abrir o Cartaz final e confirmar que todos os itens arrastáveis têm a mesma cor neutra.
