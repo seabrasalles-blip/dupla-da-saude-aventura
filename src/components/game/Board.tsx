@@ -231,8 +231,8 @@ function DieFace({ value }: { value: number }) {
     <svg viewBox="0 0 100 100" width="74" height="74">
       <defs>
         <linearGradient id="d6face" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#fffbeb" />
-          <stop offset="100%" stopColor="#fde68a" />
+          <stop offset="0%" stopColor="#ecfdf5" />
+          <stop offset="100%" stopColor="#a7f3d0" />
         </linearGradient>
       </defs>
       <rect
@@ -242,11 +242,11 @@ function DieFace({ value }: { value: number }) {
         height="88"
         rx="16"
         fill="url(#d6face)"
-        stroke="#7c2d12"
+        stroke="#047857"
         strokeWidth="5"
       />
       {pips.map(([px, py], i) => (
-        <circle key={i} cx={6 + px * 88} cy={6 + py * 88} r="8" fill="#7c2d12" />
+        <circle key={i} cx={6 + px * 88} cy={6 + py * 88} r="8" fill="#047857" />
       ))}
     </svg>
   );
@@ -286,7 +286,7 @@ export function DiceD6() {
         {display ? (
           <DieFace value={display} />
         ) : (
-          <div className="h-full w-full rounded-2xl bg-amber-100 border-4 border-amber-900 flex items-center justify-center text-3xl font-black text-amber-900">
+          <div className="h-full w-full rounded-2xl bg-emerald-50 border-4 border-emerald-600 flex items-center justify-center text-3xl font-black text-emerald-700">
             {spin ? "?" : "🎲"}
           </div>
         )}
