@@ -87,7 +87,7 @@ const BASE_SQUARES: SquareData[] = [
   },
   {
     n: 5,
-    title: "Você sabia? O que são cáries?",
+    title: "O que são cáries?",
     color: "azul",
     kind: "didyouknow",
     keySquare: true,
