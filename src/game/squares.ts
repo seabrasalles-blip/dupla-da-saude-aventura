@@ -998,7 +998,7 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
     },
     {
       n: 12,
-      title: "Você sabia? Ferver a água",
+      title: "Ferver a água",
       color: "azul",
       kind: "didyouknow",
       keySquare: true,
