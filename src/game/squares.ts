@@ -53,7 +53,7 @@ const BASE_SQUARES: SquareData[] = [
   },
   {
     n: 3,
-    title: "Você sabia? Microrganismos",
+    title: "Você sabia?",
     color: "azul",
     kind: "didyouknow",
     keySquare: true,
@@ -100,7 +100,7 @@ const BASE_SQUARES: SquareData[] = [
     title: "Depois de comer doce",
     color: "verde",
     kind: "question",
-    prompt: "Depois de comer doce, qual cena mostra um cuidado com os dentes?",
+    prompt: "Depois de comer doce, qual atitude mostra um cuidado com os dentes?",
     successFeedback: "Muito bem! Escovar os dentes ajuda a retirar restos de alimentos e proteger a boca.",
     options: [
       { label: "Criança escovando os dentes.", correct: true, feedback: "" },
@@ -181,8 +181,7 @@ const BASE_SQUARES: SquareData[] = [
     kind: "drag",
     prompt: "Arraste para a lancheira apenas os alimentos e bebidas prontos para consumir.",
     targetLabel: "Lancheira",
-    successFeedback:
-      "Parabéns! Comer alimentos limpos e beber água segura são cuidados importantes para o corpo.",
+    successFeedback: "Parabéns! Comer alimentos limpos e beber água segura são cuidados importantes para o corpo.",
     items: [
       { label: "Fruta lavada", correct: true, feedback: "" },
       { label: "Sanduíche guardado", correct: true, feedback: "" },
@@ -395,8 +394,7 @@ const BASE_SQUARES: SquareData[] = [
       {
         label: "Andar descalço no lixo",
         correct: false,
-        feedback:
-          "Andar descalço no lixo pode machucar os pés e aumentar o contato com sujeiras e contaminações.",
+        feedback: "Andar descalço no lixo pode machucar os pés e aumentar o contato com sujeiras e contaminações.",
       },
     ],
   },
@@ -424,14 +422,12 @@ const BASE_SQUARES: SquareData[] = [
       {
         label: "Deixar no chão do quintal.",
         correct: false,
-        feedback:
-          "Lixo no chão pode juntar mau cheiro, atrair animais indesejados e deixar o ambiente menos seguro.",
+        feedback: "Lixo no chão pode juntar mau cheiro, atrair animais indesejados e deixar o ambiente menos seguro.",
       },
       {
         label: "Jogar perto da água.",
         correct: false,
-        feedback:
-          "Jogar lixo perto da água pode sujar o ambiente e contaminar a água. O lixo deve ir para a lixeira.",
+        feedback: "Jogar lixo perto da água pode sujar o ambiente e contaminar a água. O lixo deve ir para a lixeira.",
       },
     ],
   },
@@ -466,8 +462,7 @@ const BASE_SQUARES: SquareData[] = [
     kind: "drag",
     prompt: "Ajude Nina e Nino a deixar o quintal mais seguro. Arraste para a lixeira o que é lixo.",
     targetLabel: "Lixeira",
-    successFeedback:
-      "Muito bem! Um ambiente limpo ajuda a proteger as pessoas e torna a brincadeira mais segura.",
+    successFeedback: "Muito bem! Um ambiente limpo ajuda a proteger as pessoas e torna a brincadeira mais segura.",
     items: [
       { label: "Papel usado", correct: true, feedback: "" },
       { label: "Casca de fruta", correct: true, feedback: "" },
@@ -500,8 +495,7 @@ const BASE_SQUARES: SquareData[] = [
     title: "Chamar um adulto",
     color: "verde",
     kind: "question",
-    prompt:
-      "Quando a criança vê uma situação de risco, como lixo, esgoto, água suja ou machucado, o que deve fazer?",
+    prompt: "Quando a criança vê uma situação de risco, como lixo, esgoto, água suja ou machucado, o que deve fazer?",
     successFeedback: "Muito bem! Chamar um adulto é uma atitude cuidadosa e segura.",
     options: [
       { label: "Avisar um adulto.", correct: true, feedback: "" },
@@ -525,11 +519,7 @@ const BASE_SQUARES: SquareData[] = [
     color: "amarelo",
     kind: "sequence",
     prompt: "Coloque as ações na ordem correta.",
-    cards: [
-      { label: "Usar o banheiro" },
-      { label: "Dar descarga" },
-      { label: "Lavar as mãos com água e sabonete" },
-    ],
+    cards: [{ label: "Usar o banheiro" }, { label: "Dar descarga" }, { label: "Lavar as mãos com água e sabonete" }],
     successFeedback:
       "Isso mesmo! Depois de usar o banheiro, lavar as mãos é um dos cuidados mais importantes para proteger a saúde.",
     wrongFeedbacks: [
@@ -540,8 +530,7 @@ const BASE_SQUARES: SquareData[] = [
       },
       {
         when: "flush-last",
-        feedback:
-          "A descarga deve vir antes da lavagem das mãos, para que as mãos sejam limpas no final.",
+        feedback: "A descarga deve vir antes da lavagem das mãos, para que as mãos sejam limpas no final.",
       },
       {
         when: "no-wash-end",
@@ -589,8 +578,7 @@ const BASE_SQUARES: SquareData[] = [
     color: "laranja",
     kind: "alert",
     prompt: "Nino machucou o joelho durante a brincadeira. O que ele deve fazer?",
-    successFeedback:
-      "Isso mesmo! Um adulto pode ajudar a limpar o machucado e cuidar para que ele não piore.",
+    successFeedback: "Isso mesmo! Um adulto pode ajudar a limpar o machucado e cuidar para que ele não piore.",
     options: [
       { label: "Avisar um adulto para ajudar a limpar e cuidar.", correct: true, feedback: "" },
       {
@@ -672,8 +660,7 @@ const BASE_SQUARES: SquareData[] = [
       { label: "Dormir sem escovar os dentes", feedback: "" },
       { label: "Passar perfume no lugar do banho", feedback: "" },
     ],
-    successFeedback:
-      "Missão cumprida! Cuidar do corpo, da água, dos alimentos e do ambiente ajuda a proteger a saúde.",
+    successFeedback: "Missão cumprida! Cuidar do corpo, da água, dos alimentos e do ambiente ajuda a proteger a saúde.",
     wrongGenericFeedback:
       "Essa ação não combina com o Cartaz dos Cuidados, porque não ajuda a proteger a saúde. Observe se ela cuida do corpo, da água, dos alimentos ou do ambiente.",
   },
@@ -692,8 +679,16 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
       successFeedback: "Isso mesmo! Lavar as mãos antes de comer ajuda a evitar que sujeiras cheguem à boca.",
       options: [
         { label: "Lava as mãos com água e sabonete.", correct: true, feedback: "", awardSeal: "maos-limpas" },
-        { label: "Limpa as mãos no cabelo.", correct: false, feedback: "O cabelo não limpa as mãos. Pode até trazer mais sujeira. O certo é lavar com água e sabonete." },
-        { label: "Sopra as mãos para espantar a sujeira.", correct: false, feedback: "Soprar não tira microrganismos nem sujeira. Para limpar mesmo, é preciso água e sabonete." },
+        {
+          label: "Limpa as mãos no cabelo.",
+          correct: false,
+          feedback: "O cabelo não limpa as mãos. Pode até trazer mais sujeira. O certo é lavar com água e sabonete.",
+        },
+        {
+          label: "Sopra as mãos para espantar a sujeira.",
+          correct: false,
+          feedback: "Soprar não tira microrganismos nem sujeira. Para limpar mesmo, é preciso água e sabonete.",
+        },
       ],
     },
   ],
@@ -725,7 +720,8 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
       keySquare: true,
       text: "Você sabia? As vacinas ajudam o corpo a se preparar para se defender de algumas doenças. Elas são uma forma importante de cuidado com a saúde.",
       seal: "vacina-em-dia",
-      sealMessage: "Selo conquistado! Vacinar é uma forma de proteger a saúde individual e também ajudar a proteger outras pessoas.",
+      sealMessage:
+        "Selo conquistado! Vacinar é uma forma de proteger a saúde individual e também ajudar a proteger outras pessoas.",
     },
     {
       n: 3,
@@ -745,11 +741,26 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
       color: "verde",
       kind: "question",
       prompt: "Quantas vezes por dia é recomendado escovar os dentes?",
-      successFeedback: "Isso mesmo! Escovar os dentes várias vezes ao dia, principalmente após as refeições e antes de dormir, ajuda a evitar cáries.",
+      successFeedback:
+        "Isso mesmo! Escovar os dentes várias vezes ao dia, principalmente após as refeições e antes de dormir, ajuda a evitar cáries.",
       options: [
-        { label: "Várias vezes ao dia, sempre após as refeições e antes de dormir.", correct: true, feedback: "", awardSeal: "dentes-bem-cuidados" },
-        { label: "Uma vez por semana.", correct: false, feedback: "Escovar só uma vez por semana deixa restos de comida acumularem por muito tempo. Os dentes precisam de cuidado diário." },
-        { label: "Só quando os dentes doem.", correct: false, feedback: "Escovar só quando dói é tarde demais. O cuidado todo dia ajuda a evitar a dor." },
+        {
+          label: "Várias vezes ao dia, sempre após as refeições e antes de dormir.",
+          correct: true,
+          feedback: "",
+          awardSeal: "dentes-bem-cuidados",
+        },
+        {
+          label: "Uma vez por semana.",
+          correct: false,
+          feedback:
+            "Escovar só uma vez por semana deixa restos de comida acumularem por muito tempo. Os dentes precisam de cuidado diário.",
+        },
+        {
+          label: "Só quando os dentes doem.",
+          correct: false,
+          feedback: "Escovar só quando dói é tarde demais. O cuidado todo dia ajuda a evitar a dor.",
+        },
       ],
     },
   ],
@@ -772,11 +783,25 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
       color: "verde",
       kind: "question",
       prompt: "Nino comeu balas na festa. Qual é o melhor cuidado em seguida?",
-      successFeedback: "Muito bem! Escovar os dentes depois de comer doces ajuda a tirar o açúcar que pode causar cáries.",
+      successFeedback:
+        "Muito bem! Escovar os dentes depois de comer doces ajuda a tirar o açúcar que pode causar cáries.",
       options: [
-        { label: "Escovar os dentes assim que possível.", correct: true, feedback: "", awardSeal: "dentes-bem-cuidados" },
-        { label: "Comer mais doces para disfarçar.", correct: false, feedback: "Mais doces aumentam o açúcar na boca e o risco de cáries." },
-        { label: "Bochechar com refrigerante.", correct: false, feedback: "Refrigerante também tem açúcar e não limpa os dentes." },
+        {
+          label: "Escovar os dentes assim que possível.",
+          correct: true,
+          feedback: "",
+          awardSeal: "dentes-bem-cuidados",
+        },
+        {
+          label: "Comer mais doces para disfarçar.",
+          correct: false,
+          feedback: "Mais doces aumentam o açúcar na boca e o risco de cáries.",
+        },
+        {
+          label: "Bochechar com refrigerante.",
+          correct: false,
+          feedback: "Refrigerante também tem açúcar e não limpa os dentes.",
+        },
       ],
     },
   ],
@@ -787,11 +812,22 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
       color: "verde",
       kind: "question",
       prompt: "Depois de assoar o nariz, qual cuidado é importante?",
-      successFeedback: "Isso mesmo! Depois de assoar o nariz, jogar o papel no lixo e lavar as mãos ajuda a manter a higiene.",
+      successFeedback:
+        "Isso mesmo! Depois de assoar o nariz, jogar o papel no lixo e lavar as mãos ajuda a manter a higiene.",
       options: [
         { label: "Jogar o papel no lixo e lavar as mãos.", correct: true, feedback: "", awardSeal: "nariz-limpo" },
-        { label: "Guardar o papel usado no bolso para usar depois.", correct: false, feedback: "Guardar papel usado no bolso não é higiênico. O papel pode estar com secreções e deve ir para o lixo." },
-        { label: "Mexer nos alimentos logo em seguida.", correct: false, feedback: "Mexer nos alimentos depois de assoar o nariz, sem lavar as mãos, pode levar sujeirinhas e microrganismos para a comida." },
+        {
+          label: "Guardar o papel usado no bolso para usar depois.",
+          correct: false,
+          feedback:
+            "Guardar papel usado no bolso não é higiênico. O papel pode estar com secreções e deve ir para o lixo.",
+        },
+        {
+          label: "Mexer nos alimentos logo em seguida.",
+          correct: false,
+          feedback:
+            "Mexer nos alimentos depois de assoar o nariz, sem lavar as mãos, pode levar sujeirinhas e microrganismos para a comida.",
+        },
       ],
     },
     {
@@ -803,8 +839,16 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
       successFeedback: "Isso mesmo! O banho tira suor e sujeira. Roupa limpa completa o cuidado.",
       options: [
         { label: "Tomar banho e colocar roupa limpa.", correct: true, feedback: "", awardSeal: "corpo-protegido" },
-        { label: "Colocar mais perfume sobre a sujeira.", correct: false, feedback: "Perfume disfarça o cheiro, mas não tira a sujeira nem os microrganismos." },
-        { label: "Continuar com a roupa suja até amanhã.", correct: false, feedback: "Ficar com roupa suja não cuida da pele. Suor e sujeira podem incomodar e causar problemas." },
+        {
+          label: "Colocar mais perfume sobre a sujeira.",
+          correct: false,
+          feedback: "Perfume disfarça o cheiro, mas não tira a sujeira nem os microrganismos.",
+        },
+        {
+          label: "Continuar com a roupa suja até amanhã.",
+          correct: false,
+          feedback: "Ficar com roupa suja não cuida da pele. Suor e sujeira podem incomodar e causar problemas.",
+        },
       ],
     },
   ],
@@ -815,11 +859,20 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
       color: "laranja",
       kind: "alert",
       prompt: "Nina pegou no balanço, na grade e no escorregador. Antes de comer a fruta, ela deve:",
-      successFeedback: "Muito bem! Lavar as mãos depois de tocar em muitos lugares ajuda a evitar que sujeiras cheguem ao lanche.",
+      successFeedback:
+        "Muito bem! Lavar as mãos depois de tocar em muitos lugares ajuda a evitar que sujeiras cheguem ao lanche.",
       options: [
         { label: "Lavar as mãos antes de pegar a fruta.", correct: true, feedback: "", awardSeal: "maos-limpas" },
-        { label: "Comer rápido para ninguém ver.", correct: false, feedback: "Comer com a mão suja pode levar microrganismos para a boca, mesmo que ninguém veja." },
-        { label: "Esfregar a fruta na camiseta.", correct: false, feedback: "A camiseta pode estar suja e não limpa de verdade nem a fruta nem as mãos." },
+        {
+          label: "Comer rápido para ninguém ver.",
+          correct: false,
+          feedback: "Comer com a mão suja pode levar microrganismos para a boca, mesmo que ninguém veja.",
+        },
+        {
+          label: "Esfregar a fruta na camiseta.",
+          correct: false,
+          feedback: "A camiseta pode estar suja e não limpa de verdade nem a fruta nem as mãos.",
+        },
       ],
     },
   ],
@@ -847,9 +900,21 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
         { label: "Maçã lavada", correct: true, feedback: "" },
         { label: "Pão guardado em saquinho", correct: true, feedback: "" },
         { label: "Garrafa de água filtrada", correct: true, feedback: "" },
-        { label: "Bolacha que caiu no chão", correct: false, feedback: "O que cai no chão pode pegar sujeira e microrganismos." },
-        { label: "Suco aberto há vários dias", correct: false, feedback: "Suco aberto há muito tempo pode estragar. O melhor é jogar fora." },
-        { label: "Banana com casca quebrada e suja", correct: false, feedback: "Se a casca está quebrada e suja, a parte de dentro pode ter sido contaminada." },
+        {
+          label: "Bolacha que caiu no chão",
+          correct: false,
+          feedback: "O que cai no chão pode pegar sujeira e microrganismos.",
+        },
+        {
+          label: "Suco aberto há vários dias",
+          correct: false,
+          feedback: "Suco aberto há muito tempo pode estragar. O melhor é jogar fora.",
+        },
+        {
+          label: "Banana com casca quebrada e suja",
+          correct: false,
+          feedback: "Se a casca está quebrada e suja, a parte de dentro pode ter sido contaminada.",
+        },
       ],
     },
   ],
@@ -862,9 +927,24 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
       prompt: "Nino vai espirrar. O que ele deve fazer?",
       successFeedback: "Muito bem! Cobrir nariz e boca ao espirrar ajuda a proteger as outras pessoas.",
       options: [
-        { label: "Cobrir o nariz e a boca com o braço dobrado ou com um lenço.", correct: true, feedback: "", awardSeal: "espirro-cuidadoso" },
-        { label: "Espirrar perto do rosto de outra pessoa.", correct: false, feedback: "Espirrar perto do rosto de outra pessoa pode espalhar gotinhas. O mais cuidadoso é cobrir nariz e boca." },
-        { label: "Espirrar nas mãos e continuar brincando.", correct: false, feedback: "Espirrar nas mãos pode deixar gotinhas nelas. Depois, essas gotinhas podem passar para objetos e alimentos. Melhor usar o braço dobrado ou um lenço." },
+        {
+          label: "Cobrir o nariz e a boca com o braço dobrado ou com um lenço.",
+          correct: true,
+          feedback: "",
+          awardSeal: "espirro-cuidadoso",
+        },
+        {
+          label: "Espirrar perto do rosto de outra pessoa.",
+          correct: false,
+          feedback:
+            "Espirrar perto do rosto de outra pessoa pode espalhar gotinhas. O mais cuidadoso é cobrir nariz e boca.",
+        },
+        {
+          label: "Espirrar nas mãos e continuar brincando.",
+          correct: false,
+          feedback:
+            "Espirrar nas mãos pode deixar gotinhas nelas. Depois, essas gotinhas podem passar para objetos e alimentos. Melhor usar o braço dobrado ou um lenço.",
+        },
       ],
     },
     {
@@ -876,8 +956,16 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
       successFeedback: "Muito bem! Bebedouro com água tratada é uma forma segura de beber água.",
       options: [
         { label: "Água do bebedouro, na garrafinha limpa.", correct: true, feedback: "", awardSeal: "agua-segura" },
-        { label: "Água da torneira do jardim.", correct: false, feedback: "Água da torneira do jardim nem sempre é própria para beber." },
-        { label: "Água do balde de limpeza.", correct: false, feedback: "Água de balde de limpeza não é para beber. Ela pode ter produtos e sujeira." },
+        {
+          label: "Água da torneira do jardim.",
+          correct: false,
+          feedback: "Água da torneira do jardim nem sempre é própria para beber.",
+        },
+        {
+          label: "Água do balde de limpeza.",
+          correct: false,
+          feedback: "Água de balde de limpeza não é para beber. Ela pode ter produtos e sujeira.",
+        },
       ],
     },
   ],
@@ -913,8 +1001,16 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
       successFeedback: "Isso mesmo! Enxurrada pode esconder buracos, lixo e microrganismos. O melhor é ficar longe.",
       options: [
         { label: "Fica longe da água e avisa um adulto.", correct: true, feedback: "", awardSeal: "ambiente-saudavel" },
-        { label: "Brinca de pular dentro da enxurrada.", correct: false, feedback: "A enxurrada pode esconder objetos cortantes, esgoto e correnteza forte. É perigoso." },
-        { label: "Mergulha a mão para pegar coisas que passam.", correct: false, feedback: "Mexer na enxurrada pode contaminar as mãos com sujeira e microrganismos." },
+        {
+          label: "Brinca de pular dentro da enxurrada.",
+          correct: false,
+          feedback: "A enxurrada pode esconder objetos cortantes, esgoto e correnteza forte. É perigoso.",
+        },
+        {
+          label: "Mergulha a mão para pegar coisas que passam.",
+          correct: false,
+          feedback: "Mexer na enxurrada pode contaminar as mãos com sujeira e microrganismos.",
+        },
       ],
     },
   ],
@@ -939,9 +1035,22 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
       prompt: "Qual cuidado a família deve ter antes de servir uma salada de folhas?",
       successFeedback: "Muito bem! Lavar bem as folhas ajuda a tirar terra e microrganismos.",
       options: [
-        { label: "Lavar as folhas uma a uma em água corrente.", correct: true, feedback: "", awardSeal: "alimentos-lavados" },
-        { label: "Servir direto do mercado, sem lavar.", correct: false, feedback: "Mesmo as folhas embaladas podem ter sujeirinhas. Lavar é importante." },
-        { label: "Passar apenas um pano por cima.", correct: false, feedback: "Um pano não tira microrganismos. Água corrente faz uma limpeza melhor." },
+        {
+          label: "Lavar as folhas uma a uma em água corrente.",
+          correct: true,
+          feedback: "",
+          awardSeal: "alimentos-lavados",
+        },
+        {
+          label: "Servir direto do mercado, sem lavar.",
+          correct: false,
+          feedback: "Mesmo as folhas embaladas podem ter sujeirinhas. Lavar é importante.",
+        },
+        {
+          label: "Passar apenas um pano por cima.",
+          correct: false,
+          feedback: "Um pano não tira microrganismos. Água corrente faz uma limpeza melhor.",
+        },
       ],
     },
   ],
@@ -955,8 +1064,16 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
       successFeedback: "Isso mesmo! Calçados e mãos lavadas depois protegem contra verminoses.",
       options: [
         { label: "Usar calçados e lavar as mãos depois.", correct: true, feedback: "", awardSeal: "corpo-protegido" },
-        { label: "Andar descalça e colocar a mão na boca.", correct: false, feedback: "Andar descalça em terra e levar a mão à boca pode trazer vermes e microrganismos para o corpo." },
-        { label: "Comer fruta caída do pé sem lavar.", correct: false, feedback: "Fruta caída no chão pode estar suja. Antes de comer, é preciso lavar." },
+        {
+          label: "Andar descalça e colocar a mão na boca.",
+          correct: false,
+          feedback: "Andar descalça em terra e levar a mão à boca pode trazer vermes e microrganismos para o corpo.",
+        },
+        {
+          label: "Comer fruta caída do pé sem lavar.",
+          correct: false,
+          feedback: "Fruta caída no chão pode estar suja. Antes de comer, é preciso lavar.",
+        },
       ],
     },
   ],
@@ -991,9 +1108,22 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
       prompt: "Por que é importante jogar o lixo nas lixeiras certas?",
       successFeedback: "Muito bem! Lixo no lugar certo ajuda a coleta e mantém o ambiente limpo.",
       options: [
-        { label: "Para o ambiente ficar limpo e a coleta funcionar bem.", correct: true, feedback: "", awardSeal: "ambiente-saudavel" },
-        { label: "Para os animais comerem o lixo.", correct: false, feedback: "Lixo não é comida de animais. Pode fazer mal a eles e atrair bichos indesejados." },
-        { label: "Não é importante, tanto faz.", correct: false, feedback: "Quando o lixo fica fora do lugar, atrai bichos e suja o ambiente." },
+        {
+          label: "Para o ambiente ficar limpo e a coleta funcionar bem.",
+          correct: true,
+          feedback: "",
+          awardSeal: "ambiente-saudavel",
+        },
+        {
+          label: "Para os animais comerem o lixo.",
+          correct: false,
+          feedback: "Lixo não é comida de animais. Pode fazer mal a eles e atrair bichos indesejados.",
+        },
+        {
+          label: "Não é importante, tanto faz.",
+          correct: false,
+          feedback: "Quando o lixo fica fora do lugar, atrai bichos e suja o ambiente.",
+        },
       ],
     },
   ],
@@ -1006,9 +1136,22 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
       prompt: "Nino vê um cano de esgoto vazando perto da escola. O que ele faz?",
       successFeedback: "Muito bem! Esgoto a céu aberto traz riscos. Avisar um adulto ajuda todos.",
       options: [
-        { label: "Não chega perto e avisa um adulto da escola.", correct: true, feedback: "", awardSeal: "ambiente-saudavel" },
-        { label: "Tenta tapar com o pé.", correct: false, feedback: "Mexer no esgoto pode contaminar Nino com microrganismos. Adulto deve resolver." },
-        { label: "Brinca na poça que se formou.", correct: false, feedback: "Poça de esgoto é muito perigosa para brincar. Tem microrganismos e sujeira." },
+        {
+          label: "Não chega perto e avisa um adulto da escola.",
+          correct: true,
+          feedback: "",
+          awardSeal: "ambiente-saudavel",
+        },
+        {
+          label: "Tenta tapar com o pé.",
+          correct: false,
+          feedback: "Mexer no esgoto pode contaminar Nino com microrganismos. Adulto deve resolver.",
+        },
+        {
+          label: "Brinca na poça que se formou.",
+          correct: false,
+          feedback: "Poça de esgoto é muito perigosa para brincar. Tem microrganismos e sujeira.",
+        },
       ],
     },
   ],
@@ -1034,8 +1177,16 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
       successFeedback: "Isso mesmo! Tossir no braço dobrado ajuda a diminuir a espalhação de gotinhas.",
       options: [
         { label: "Tossir no braço dobrado.", correct: true, feedback: "", awardSeal: "espirro-cuidadoso" },
-        { label: "Tossir sobre o lanche.", correct: false, feedback: "Tossir sobre o lanche não é higiênico. Gotinhas podem cair no alimento." },
-        { label: "Tossir perto do colega.", correct: false, feedback: "Tossir perto do colega pode espalhar gotinhas. O mais cuidadoso é cobrir nariz e boca." },
+        {
+          label: "Tossir sobre o lanche.",
+          correct: false,
+          feedback: "Tossir sobre o lanche não é higiênico. Gotinhas podem cair no alimento.",
+        },
+        {
+          label: "Tossir perto do colega.",
+          correct: false,
+          feedback: "Tossir perto do colega pode espalhar gotinhas. O mais cuidadoso é cobrir nariz e boca.",
+        },
       ],
     },
     {
@@ -1047,8 +1198,16 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
       successFeedback: "Isso mesmo! Chamar um adulto é a forma segura de ajudar.",
       options: [
         { label: "Chama rapidamente um adulto para ajudar.", correct: true, feedback: "", awardSeal: "cuidado-medico" },
-        { label: "Tenta tratar o machucado sozinha com terra.", correct: false, feedback: "Terra no machucado pode contaminar. Adulto sabe limpar do jeito certo." },
-        { label: "Continua brincando e finge que não viu.", correct: false, feedback: "Quando alguém se machuca, pedir ajuda a um adulto é a coisa certa." },
+        {
+          label: "Tenta tratar o machucado sozinha com terra.",
+          correct: false,
+          feedback: "Terra no machucado pode contaminar. Adulto sabe limpar do jeito certo.",
+        },
+        {
+          label: "Continua brincando e finge que não viu.",
+          correct: false,
+          feedback: "Quando alguém se machuca, pedir ajuda a um adulto é a coisa certa.",
+        },
       ],
     },
   ],
@@ -1073,9 +1232,22 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
       prompt: "Nina viu cocô do cachorro no quintal antes da brincadeira. O que é melhor fazer?",
       successFeedback: "Muito bem! Avisar um adulto para recolher protege todo mundo.",
       options: [
-        { label: "Avisar um adulto para recolher e jogar no lixo.", correct: true, feedback: "", awardSeal: "ambiente-saudavel" },
-        { label: "Pisar em cima de propósito.", correct: false, feedback: "Pisar no cocô pode espalhar microrganismos pelo quintal e pela casa." },
-        { label: "Continuar a brincadeira por perto.", correct: false, feedback: "Brincar perto de cocô não é seguro. Pode haver vermes e microrganismos." },
+        {
+          label: "Avisar um adulto para recolher e jogar no lixo.",
+          correct: true,
+          feedback: "",
+          awardSeal: "ambiente-saudavel",
+        },
+        {
+          label: "Pisar em cima de propósito.",
+          correct: false,
+          feedback: "Pisar no cocô pode espalhar microrganismos pelo quintal e pela casa.",
+        },
+        {
+          label: "Continuar a brincadeira por perto.",
+          correct: false,
+          feedback: "Brincar perto de cocô não é seguro. Pode haver vermes e microrganismos.",
+        },
       ],
     },
   ],
@@ -1088,9 +1260,22 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
       prompt: "Nina caiu e o joelho está sangrando. Qual o primeiro cuidado?",
       successFeedback: "Isso mesmo! Lavar com água limpa e pedir ajuda do adulto é o cuidado certo.",
       options: [
-        { label: "Pedir ajuda do adulto e lavar com água limpa e sabonete.", correct: true, feedback: "", awardSeal: "cuidado-medico" },
-        { label: "Passar saliva no machucado.", correct: false, feedback: "Saliva tem microrganismos da boca. Não é boa ideia colocá-la em machucados." },
-        { label: "Esconder dentro da calça e continuar correndo.", correct: false, feedback: "Machucado escondido não recebe cuidado e pode piorar." },
+        {
+          label: "Pedir ajuda do adulto e lavar com água limpa e sabonete.",
+          correct: true,
+          feedback: "",
+          awardSeal: "cuidado-medico",
+        },
+        {
+          label: "Passar saliva no machucado.",
+          correct: false,
+          feedback: "Saliva tem microrganismos da boca. Não é boa ideia colocá-la em machucados.",
+        },
+        {
+          label: "Esconder dentro da calça e continuar correndo.",
+          correct: false,
+          feedback: "Machucado escondido não recebe cuidado e pode piorar.",
+        },
       ],
     },
   ],
@@ -1104,4 +1289,3 @@ export const SQUARE_VARIANTS: SquareData[][] = BASE_SQUARES.map((base) => {
 
 // Legacy export: headers (color/title/kind from first variant) used by Board.
 export const SQUARES: SquareData[] = BASE_SQUARES;
-
