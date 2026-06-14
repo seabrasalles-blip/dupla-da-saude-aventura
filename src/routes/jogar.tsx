@@ -185,56 +185,67 @@ function GameScreen() {
 function FinalScreen() {
   const seals = useGame((s) => s.seals);
   const reset = useGame((s) => s.reset);
+  const stamps: { icon: string; title: string; phrase: string; color: string }[] = [
+    { icon: "🧼", title: "Mãos limpas", phrase: "Água e sabonete.", color: "border-sky-400 bg-sky-50" },
+    { icon: "🪥", title: "Dentes cuidados", phrase: "Escovar todos os dias.", color: "border-sky-400 bg-sky-50" },
+    { icon: "🛁", title: "Banho e roupa limpa", phrase: "Cuidar do corpo.", color: "border-sky-400 bg-sky-50" },
+    { icon: "💧", title: "Água segura", phrase: "Tratada, filtrada ou fervida.", color: "border-emerald-400 bg-emerald-50" },
+    { icon: "🥬", title: "Alimentos lavados", phrase: "Frutas e verduras limpas.", color: "border-emerald-400 bg-emerald-50" },
+    { icon: "👟", title: "Calçados", phrase: "Protegem os pés.", color: "border-emerald-400 bg-emerald-50" },
+    { icon: "🗑️", title: "Lixo no lugar certo", phrase: "Ambiente mais limpo.", color: "border-amber-400 bg-amber-50" },
+    { icon: "⚠️", title: "Longe de riscos", phrase: "Esgoto, lixo, água suja.", color: "border-amber-400 bg-amber-50" },
+    { icon: "🙋", title: "Avise um adulto", phrase: "Peça ajuda quando precisar.", color: "border-amber-400 bg-amber-50" },
+    { icon: "🚫", title: "Higiene é pessoal", phrase: "Não compartilhe escova.", color: "border-violet-400 bg-violet-50" },
+    { icon: "🤧", title: "Lenço no nariz", phrase: "Use e jogue no lixo.", color: "border-violet-400 bg-violet-50" },
+    { icon: "💪", title: "Espirro cuidadoso", phrase: "Cubra com o braço.", color: "border-violet-400 bg-violet-50" },
+    { icon: "💉", title: "Vacinas em dia", phrase: "Protegem a saúde.", color: "border-rose-400 bg-rose-50" },
+    { icon: "🩺", title: "Médico e dentista", phrase: "Cuidado e prevenção.", color: "border-rose-400 bg-rose-50" },
+  ];
   return (
-    <div className="flex flex-col items-center justify-center h-full px-10 text-center overflow-auto">
+    <div className="flex flex-col items-center justify-center h-full px-8 text-center gap-3">
       <div className="flex items-end gap-6">
-        <img src={ninaAsset.url} alt="Nina" className="h-40" />
-        <div>
-          <h2 className="text-4xl font-black text-emerald-700">Missão cumprida, Dupla da Saúde!</h2>
-          <p className="mt-1 text-slate-700 max-w-2xl text-sm">
-            Vocês ajudaram Nina e Nino a completar o jogo Corpo Bem Cuidado. Agora vocês sabem que cuidar do corpo é
-            mais do que ficar limpo — é também proteger a saúde, cuidar da água, dos alimentos e do ambiente.
+        <img src={ninaAsset.url} alt="Nina" className="h-32" />
+        <div className="max-w-2xl">
+          <h2 className="text-3xl font-black text-emerald-700">Missão cumprida, Dupla da Saúde!</h2>
+          <p className="mt-1 text-slate-700 text-sm leading-snug">
+            Vocês ajudaram Nina e Nino a completar a missão! Agora já sabem que cuidar do corpo, da água, dos alimentos
+            e do ambiente ajuda a proteger a saúde.
           </p>
         </div>
-        <img src={ninoAsset.url} alt="Nino" className="h-40" />
+        <img src={ninoAsset.url} alt="Nino" className="h-32" />
       </div>
 
-      <div className="mt-4 rounded-2xl bg-white border-4 border-violet-400 p-4 shadow-xl max-w-3xl text-left">
-        <div className="text-center font-black text-violet-800 text-lg mb-2">Cartaz dos Cuidados com a Saúde</div>
-        <ul className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-slate-700">
-          {[
-            "Lavar as mãos com água e sabonete.",
-            "Escovar os dentes todos os dias.",
-            "Tomar banho e usar roupas limpas.",
-            "Beber água tratada, filtrada ou fervida com ajuda de um adulto.",
-            "Lavar frutas, verduras e legumes antes de comer.",
-            "Usar calçados em locais com terra, lixo ou água suja.",
-            "Jogar lixo no lugar certo.",
-            "Ficar longe de esgoto, lixo e água suja.",
-            "Avisar um adulto em situações de risco.",
-            "Não compartilhar objetos pessoais de higiene, como a escova de dentes.",
-            "Usar lenço para assoar o nariz e jogar no lixo, depois lavar as mãos.",
-            "Cobrir nariz e boca com o braço dobrado ao espirrar ou tossir.",
-            "Manter as vacinas em dia.",
-            "Visitar médico e dentista para prevenir, não só quando estamos doentes.",
-          ].map((t) => (
-            <li key={t} className="flex gap-1.5">
-              <span>🏅</span>
-              {t}
-            </li>
+      <div className="inline-flex items-center gap-2 rounded-full bg-amber-100 border-2 border-amber-400 text-amber-800 font-black px-4 py-1">
+        🏅 Selos conquistados: {seals.length} de 14
+      </div>
+
+      <div className="rounded-2xl bg-violet-50 border-4 border-violet-400 p-3 shadow-xl max-w-5xl w-full">
+        <div className="text-center font-black text-violet-800 text-base mb-2">Cartaz dos Cuidados com a Saúde</div>
+        <div className="grid grid-cols-4 gap-2">
+          {stamps.map((s) => (
+            <div
+              key={s.title}
+              className={`rounded-xl border-2 ${s.color} px-2 py-1.5 flex flex-col items-center text-center`}
+            >
+              <div className="text-2xl leading-none">{s.icon}</div>
+              <div className="text-sm font-bold text-slate-800 leading-tight mt-0.5">{s.title}</div>
+              <div className="text-[11px] text-slate-600 leading-tight">{s.phrase}</div>
+            </div>
           ))}
-        </ul>
-        <div className="mt-2 text-center text-xs text-slate-500">Selos conquistados: {seals.length}/14</div>
+        </div>
       </div>
 
-      <div className="mt-4 flex gap-3">
+      <div className="flex gap-3">
         <button
           onClick={reset}
-          className="rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2"
+          className="rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-7 py-2.5 text-base"
         >
           Jogar novamente
         </button>
-        <Link to="/" className="rounded-full bg-white border-2 border-slate-400 text-slate-700 font-bold px-6 py-2">
+        <Link
+          to="/"
+          className="rounded-full bg-white border-2 border-slate-400 text-slate-700 font-bold px-7 py-2.5 text-base"
+        >
           Voltar ao início
         </Link>
       </div>
