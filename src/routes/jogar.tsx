@@ -66,25 +66,26 @@ function Intro() {
   const goToChoose = useGame((s) => s.goToChoose);
   return (
     <div className="flex flex-col items-center justify-center h-full px-12">
-      <h2 className="text-3xl font-black text-emerald-800 mb-6">A Dupla da Saúde</h2>
+      <h2 className="text-3xl font-black text-emerald-800 mb-4">A Dupla da Saúde</h2>
       <div className="grid grid-cols-2 gap-8 max-w-4xl">
         <div className="flex items-end gap-3">
           <img src={ninaAsset.url} alt="Nina" className="h-44" />
-          <div className="rounded-2xl bg-orange-100 border-2 border-orange-300 p-3 text-sm mb-2">
+          <div className="rounded-2xl bg-orange-100 border-2 border-orange-300 p-5 text-[18px] leading-relaxed mb-2 flex-1 max-w-sm min-h-[110px]">
             Olá! Eu sou a Nina. Hoje vamos descobrir cuidados importantes para o corpo.
           </div>
         </div>
         <div className="flex items-end gap-3 flex-row-reverse">
           <img src={ninoAsset.url} alt="Nino" className="h-44" />
-          <div className="rounded-2xl bg-sky-100 border-2 border-sky-300 p-3 text-sm mb-2">
+          <div className="rounded-2xl bg-sky-100 border-2 border-sky-300 p-5 text-[18px] leading-relaxed mb-2 flex-1 max-w-sm min-h-[110px]">
             E eu sou o Nino! Vamos aprender por que higiene, água segura e ambiente limpo ajudam a proteger a saúde.
           </div>
         </div>
       </div>
-      <p className="mt-4 text-center text-slate-700 max-w-2xl">
+      <p className="mt-6 text-center text-lg leading-relaxed text-slate-700 max-w-2xl">
         Algumas sujeiras e microrganismos são tão pequenos que não conseguimos ver. Por isso, cuidar do corpo e do
         ambiente é muito importante.
       </p>
+
       <button
         onClick={goToChoose}
         className="mt-6 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-10 py-3 text-lg shadow-xl"
