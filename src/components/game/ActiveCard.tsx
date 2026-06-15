@@ -1,6 +1,8 @@
 import { useMemo, useState, type DragEvent } from "react";
 import { SEAL_LABELS, type SealId, type SquareData } from "@/game/types";
 import { useGame } from "@/game/store";
+import ninaAsset from "@/assets/nina.png.asset.json";
+import ninoAsset from "@/assets/nino.png.asset.json";
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
@@ -462,8 +464,15 @@ function FinalCard({ sq }: { sq: FinalSq }) {
 
   return (
     <div>
-      <p className="text-base text-slate-700 mb-3">{sq.prompt}</p>
+      <div className="flex items-center justify-center gap-3 mb-2">
+        <img src={ninaAsset.url} alt="Nina" className="h-16" />
+        <img src={ninoAsset.url} alt="Nino" className="h-16" />
+      </div>
+      <p className="text-base font-bold text-emerald-800 text-center mb-3 leading-snug">
+        Agora a Dupla da Saúde está completa! Arrastem juntos os selos para montar o Cartaz dos Cuidados com a Saúde.
+      </p>
       <div className="flex flex-wrap gap-2 mb-3">
+
         {visible
           .filter((it) => !(it.sealId && placed.includes(it.sealId)))
           .map((it) => (

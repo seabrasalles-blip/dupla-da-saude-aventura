@@ -12,6 +12,7 @@ export type Phase =
   | "moving"
   | "landing"
   | "card"
+  | "waiting-partner"
   | "finished";
 
 type GameState = {
@@ -35,6 +36,7 @@ type GameState = {
   rollDice: () => void;
   movePawnTo: (target: number) => boolean;
   closeCardAndProceed: () => void;
+  continueAfterWaiting: () => void;
   awardSeal: (s: SealId) => void;
   reset: () => void;
   toggleSound: () => void;
@@ -107,6 +109,28 @@ export const useGame = create<GameState>((set, get) => ({
         usedCardsByHouse: nextUsed,
         phase: "landing",
       });
+    } else if (target === 30) {
+      const other: Player = turn === "nina" ? "nino" : "nina";
+      const otherAtEnd = positions[other] >= 30;
+      const newPositions = { ...positions, [turn]: 30 };
+      if (!otherAtEnd) {
+        set({
+          positions: newPositions,
+          activeSquare: null,
+          activeVariantIndex: null,
+          pendingKey: null,
+          phase: "waiting-partner",
+        });
+      } else {
+        const { index, nextUsed } = pickVariantIndex(30, usedCardsByHouse);
+        set({
+          positions: newPositions,
+          activeSquare: 30,
+          activeVariantIndex: index,
+          usedCardsByHouse: nextUsed,
+          phase: "landing",
+        });
+      }
     } else {
       const { index, nextUsed } = pickVariantIndex(target, usedCardsByHouse);
       set({
@@ -138,6 +162,31 @@ export const useGame = create<GameState>((set, get) => ({
         });
         return;
       }
+      if (target === 30) {
+        const other: Player = turn === "nina" ? "nino" : "nina";
+        const otherAtEnd = positions[other] >= 30;
+        const newPositions = { ...positions, [turn]: 30 };
+        if (!otherAtEnd) {
+          set({
+            positions: newPositions,
+            activeSquare: null,
+            activeVariantIndex: null,
+            pendingKey: null,
+            phase: "waiting-partner",
+          });
+          return;
+        }
+        const { index, nextUsed } = pickVariantIndex(30, usedCardsByHouse);
+        set({
+          positions: newPositions,
+          activeSquare: 30,
+          activeVariantIndex: index,
+          usedCardsByHouse: nextUsed,
+          pendingKey: null,
+          phase: "landing",
+        });
+        return;
+      }
       const { index, nextUsed } = pickVariantIndex(target, usedCardsByHouse);
       set({
         positions: { ...positions, [turn]: target },
@@ -165,6 +214,30 @@ export const useGame = create<GameState>((set, get) => ({
     const finalTurn: Player = pos[nextTurn] >= 30 ? turn : nextTurn;
     set({
       turn: finalTurn,
+      activeSquare: null,
+      activeVariantIndex: null,
+      dice: null,
+      destination: null,
+      phase: "playing",
+    });
+  },
+
+  continueAfterWaiting: () => {
+    const { turn, positions } = get();
+    const other: Player = turn === "nina" ? "nino" : "nina";
+    if (positions[other] >= 30) {
+      // safety: both at end already → finished
+      set({
+        phase: "finished",
+        activeSquare: null,
+        activeVariantIndex: null,
+        dice: null,
+        destination: null,
+      });
+      return;
+    }
+    set({
+      turn: other,
       activeSquare: null,
       activeVariantIndex: null,
       dice: null,
