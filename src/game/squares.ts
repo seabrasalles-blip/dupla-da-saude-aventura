@@ -289,7 +289,7 @@ const BASE_SQUARES: SquareData[] = [
     title: "Água segura ou não segura?",
     color: "amarelo",
     kind: "classify",
-    prompt: "Separe as imagens em dois grupos: mais segura para beber e não segura para beber.",
+    prompt: "Separe em dois grupos: mais segura para beber e não segura para beber.",
     groupALabel: "Mais segura para beber",
     groupBLabel: "Não segura para beber",
     successFeedback: "Muito bem! Nem toda água é própria para beber. Água segura ajuda a proteger o corpo.",
