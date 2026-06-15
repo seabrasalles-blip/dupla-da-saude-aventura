@@ -12,6 +12,7 @@ export type Phase =
   | "moving"
   | "landing"
   | "card"
+  | "waiting-partner"
   | "finished";
 
 type GameState = {
