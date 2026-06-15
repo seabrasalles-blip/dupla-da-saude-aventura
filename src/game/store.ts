@@ -222,6 +222,30 @@ export const useGame = create<GameState>((set, get) => ({
     });
   },
 
+  continueAfterWaiting: () => {
+    const { turn, positions } = get();
+    const other: Player = turn === "nina" ? "nino" : "nina";
+    if (positions[other] >= 30) {
+      // safety: both at end already → finished
+      set({
+        phase: "finished",
+        activeSquare: null,
+        activeVariantIndex: null,
+        dice: null,
+        destination: null,
+      });
+      return;
+    }
+    set({
+      turn: other,
+      activeSquare: null,
+      activeVariantIndex: null,
+      dice: null,
+      destination: null,
+      phase: "playing",
+    });
+  },
+
   awardSeal: (s) =>
     set((st) => (st.seals.includes(s) ? st : { seals: [...st.seals, s] })),
 
