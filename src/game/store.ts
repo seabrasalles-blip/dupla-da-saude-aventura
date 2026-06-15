@@ -162,6 +162,31 @@ export const useGame = create<GameState>((set, get) => ({
         });
         return;
       }
+      if (target === 30) {
+        const other: Player = turn === "nina" ? "nino" : "nina";
+        const otherAtEnd = positions[other] >= 30;
+        const newPositions = { ...positions, [turn]: 30 };
+        if (!otherAtEnd) {
+          set({
+            positions: newPositions,
+            activeSquare: null,
+            activeVariantIndex: null,
+            pendingKey: null,
+            phase: "waiting-partner",
+          });
+          return;
+        }
+        const { index, nextUsed } = pickVariantIndex(30, usedCardsByHouse);
+        set({
+          positions: newPositions,
+          activeSquare: 30,
+          activeVariantIndex: index,
+          usedCardsByHouse: nextUsed,
+          pendingKey: null,
+          phase: "landing",
+        });
+        return;
+      }
       const { index, nextUsed } = pickVariantIndex(target, usedCardsByHouse);
       set({
         positions: { ...positions, [turn]: target },
