@@ -102,9 +102,6 @@ function GameScreen() {
   const dice = useGame((s) => s.dice);
   const phase = useGame((s) => s.phase);
   const seals = useGame((s) => s.seals);
-  const reset = useGame((s) => s.reset);
-  const sound = useGame((s) => s.soundOn);
-  const toggleSound = useGame((s) => s.toggleSound);
   const positions = useGame((s) => s.positions);
 
   const continueAfterWaiting = useGame((s) => s.continueAfterWaiting);
