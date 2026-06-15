@@ -204,7 +204,7 @@ const BASE_SQUARES: SquareData[] = [
     successFeedback: "Parabéns! Comer alimentos limpos e beber água segura são cuidados importantes para o corpo.",
     items: [
       { label: "Fruta lavada", correct: true, feedback: "" },
-      { label: "Sanduíche guardado", correct: true, feedback: "" },
+      { label: "Sanduíche embaladinho", correct: true, feedback: "" },
       { label: "Garrafa com água tratada", correct: true, feedback: "" },
       {
         label: "Fruta suja",
