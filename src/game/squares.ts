@@ -38,7 +38,11 @@ const BASE_SQUARES: SquareData[] = [
       { label: "Água", correct: true, feedback: "" },
       { label: "Sabonete", correct: true, feedback: "" },
       { label: "Toalha limpa", correct: true, feedback: "" },
-      { label: "Detergente", correct: false, feedback: "O detergente é um produto de limpeza." },
+      {
+        label: "Detergente",
+        correct: false,
+        feedback: "O detergente é um produto de limpeza. Ele pode irritar a pele e não foi feito para o corpo.",
+      },
       {
         label: "Creme dental",
         correct: false,
