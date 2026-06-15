@@ -102,9 +102,6 @@ function GameScreen() {
   const dice = useGame((s) => s.dice);
   const phase = useGame((s) => s.phase);
   const seals = useGame((s) => s.seals);
-  const reset = useGame((s) => s.reset);
-  const sound = useGame((s) => s.soundOn);
-  const toggleSound = useGame((s) => s.toggleSound);
   const positions = useGame((s) => s.positions);
 
   const continueAfterWaiting = useGame((s) => s.continueAfterWaiting);
@@ -182,23 +179,6 @@ function GameScreen() {
           </div>
         </div>
 
-        <div className="flex gap-2">
-          <button
-            onClick={toggleSound}
-            className="flex-1 rounded-xl bg-white border-2 border-slate-300 px-3 py-1.5 text-xs font-semibold"
-          >
-            {sound ? "🔊 Som" : "🔇 Mudo"}
-          </button>
-          <button
-            onClick={reset}
-            className="flex-1 rounded-xl bg-white border-2 border-slate-300 px-3 py-1.5 text-xs font-semibold"
-          >
-            ↻ Reiniciar
-          </button>
-          <Link to="/" className="rounded-xl bg-white border-2 border-slate-300 px-3 py-1.5 text-xs font-semibold">
-            🏠
-          </Link>
-        </div>
       </aside>
     </div>
   );
