@@ -207,7 +207,7 @@ const BASE_SQUARES: SquareData[] = [
       { label: "Sanduíche embaladinho", correct: true, feedback: "" },
       { label: "Garrafa com água tratada", correct: true, feedback: "" },
       {
-        label: "Fruta suja",
+        label: "Fruta sem lavar",
         correct: false,
         feedback: "A fruta suja pode ter terra e microrganismos. Antes de comer, ela precisa ser lavada.",
       },
@@ -217,9 +217,9 @@ const BASE_SQUARES: SquareData[] = [
         feedback: "O alimento que caiu no chão pode pegar sujeira. O mais seguro é não colocá-lo na lancheira.",
       },
       {
-        label: "Copo com água de poça",
+        label: "Copo com água da torneira",
         correct: false,
-        feedback: "Água de poça não é segura para beber. Ela pode ter sujeira e microrganismos.",
+        feedback: "Água da torneira não é segura para beber. Ela pode não ter sido tratada.",
       },
     ],
   },
