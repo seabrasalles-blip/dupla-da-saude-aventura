@@ -464,8 +464,15 @@ function FinalCard({ sq }: { sq: FinalSq }) {
 
   return (
     <div>
-      <p className="text-base text-slate-700 mb-3">{sq.prompt}</p>
+      <div className="flex items-center justify-center gap-3 mb-2">
+        <img src={ninaAsset.url} alt="Nina" className="h-16" />
+        <img src={ninoAsset.url} alt="Nino" className="h-16" />
+      </div>
+      <p className="text-base font-bold text-emerald-800 text-center mb-3 leading-snug">
+        Agora a Dupla da Saúde está completa! Arrastem juntos os selos para montar o Cartaz dos Cuidados com a Saúde.
+      </p>
       <div className="flex flex-wrap gap-2 mb-3">
+
         {visible
           .filter((it) => !(it.sealId && placed.includes(it.sealId)))
           .map((it) => (
