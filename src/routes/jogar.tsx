@@ -34,7 +34,8 @@ function Jogar() {
         phase === "rolling" ||
         phase === "moving" ||
         phase === "landing" ||
-        phase === "card") && <GameScreen />}
+        phase === "card" ||
+        phase === "waiting-partner") && <GameScreen />}
       {phase === "finished" && <FinalScreen />}
     </div>
   );
