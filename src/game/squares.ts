@@ -3,7 +3,7 @@ import type { SquareData } from "./types";
 const BASE_SQUARES: SquareData[] = [
   {
     n: 1,
-    title: "Mãos limpas antes de comer",
+    title: "Antes de comer",
     color: "verde",
     kind: "question",
     prompt: "Antes de comer o lanche, qual cuidado ajuda a proteger a saúde?",
@@ -140,7 +140,7 @@ const BASE_SQUARES: SquareData[] = [
   },
   {
     n: 7,
-    title: "Banho e roupa limpa",
+    title: "Depois de brincar no parque",
     color: "verde",
     kind: "question",
     prompt: "Depois de brincar, suar e se sujar, qual cuidado ajuda o corpo?",
@@ -163,7 +163,7 @@ const BASE_SQUARES: SquareData[] = [
   },
   {
     n: 8,
-    title: "Mão suja na boca",
+    title: "Mãos na boca",
     color: "laranja",
     kind: "alert",
     prompt: "Nino brincou no chão e colocou a mão na boca. O que seria mais cuidadoso?",
@@ -225,7 +225,7 @@ const BASE_SQUARES: SquareData[] = [
   },
   {
     n: 11,
-    title: "Água para beber",
+    title: "Água potável",
     color: "verde",
     kind: "question",
     prompt: "Qual água é mais segura para beber?",
@@ -365,7 +365,7 @@ const BASE_SQUARES: SquareData[] = [
   },
   {
     n: 17,
-    title: "Calçados em lugares de risco",
+    title: "Cuidados em lugares de risco",
     color: "laranja",
     kind: "alert",
     prompt: "Nino vai passar perto de terra, lixo e água suja. Qual atitude é mais segura?",
@@ -431,7 +431,7 @@ const BASE_SQUARES: SquareData[] = [
   },
   {
     n: 20,
-    title: "Lixo no lugar certo",
+    title: "Lixo",
     color: "verde",
     kind: "question",
     prompt: "O que devemos fazer com embalagens, papéis e restos de alimentos?",
@@ -512,7 +512,7 @@ const BASE_SQUARES: SquareData[] = [
   },
   {
     n: 24,
-    title: "Chamar um adulto",
+    title: "Situações de risco",
     color: "verde",
     kind: "question",
     prompt: "Quando a criança vê uma situação de risco, como lixo, esgoto, água suja ou machucado, o que deve fazer?",
@@ -852,7 +852,7 @@ const EXTRA_VARIANTS: Record<number, SquareData[]> = {
     },
     {
       n: 7,
-      title: "Banho depois de brincar",
+      title: "Depois de brincar",
       color: "verde",
       kind: "question",
       prompt: "Nina brincou na terra a tarde toda. O que ajuda o corpo dela agora?",
