@@ -1,6 +1,8 @@
 import { useMemo, useState, type DragEvent } from "react";
 import { SEAL_LABELS, type SealId, type SquareData } from "@/game/types";
 import { useGame } from "@/game/store";
+import ninaAsset from "@/assets/nina.png.asset.json";
+import ninoAsset from "@/assets/nino.png.asset.json";
 
 function shuffle<T>(arr: T[]): T[] {
   const a = [...arr];
