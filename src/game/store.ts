@@ -36,6 +36,7 @@ type GameState = {
   rollDice: () => void;
   movePawnTo: (target: number) => boolean;
   closeCardAndProceed: () => void;
+  continueAfterWaiting: () => void;
   awardSeal: (s: SealId) => void;
   reset: () => void;
   toggleSound: () => void;
