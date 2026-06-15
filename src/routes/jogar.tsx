@@ -114,22 +114,25 @@ function GameScreen() {
       <div className="relative">
         <Board />
         <ActiveCard />
-        {phase === "waiting-partner" && (
-          <div className="absolute inset-0 flex items-center justify-center bg-slate-900/40 rounded-2xl z-30">
-            <div className="bg-white border-4 border-emerald-500 rounded-3xl shadow-2xl p-6 max-w-md text-center flex flex-col items-center gap-3">
-              <img src={CHAR(turn)} alt={turn} className="h-28" />
-              <p className="text-lg font-bold text-slate-800 leading-snug">
-                Você chegou ao final! Agora espere seu amigo chegar para vocês montarem juntos o Cartaz dos Cuidados com a Saúde.
-              </p>
-              <button
-                onClick={continueAfterWaiting}
-                className="rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2 text-base shadow-lg"
-              >
-                Passar a vez
-              </button>
+        {phase === "waiting-partner" && (() => {
+          const partner = turn === "nina" ? "Nino" : "Nina";
+          return (
+            <div className="absolute inset-0 flex items-center justify-center bg-slate-900/40 rounded-2xl z-30">
+              <div className="bg-white border-4 border-emerald-500 rounded-3xl shadow-2xl p-6 max-w-md text-center flex flex-col items-center gap-3">
+                <img src={CHAR(turn)} alt={turn} className="h-28" />
+                <p className="text-lg font-bold text-slate-800 leading-snug">
+                  Você chegou ao final! Agora espere {partner} chegar para vocês montarem juntos o Cartaz dos Cuidados com a Saúde.
+                </p>
+                <button
+                  onClick={continueAfterWaiting}
+                  className="rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-6 py-2 text-base shadow-lg"
+                >
+                  Passar a vez
+                </button>
+              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
       </div>
       <aside className="flex flex-col gap-3">
         <div className="rounded-2xl bg-white border-2 border-slate-200 p-3 shadow text-center">
