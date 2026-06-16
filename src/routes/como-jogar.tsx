@@ -67,7 +67,7 @@ function ComoJogar() {
           to="/jogar"
           className="rounded-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-8 py-3 text-lg shadow-xl"
         >
-          Começar missão
+          Começar o jogo
         </Link>
         <Link to="/" className="rounded-full bg-white border-2 border-slate-400 text-slate-700 font-bold px-6 py-3">
           Voltar
